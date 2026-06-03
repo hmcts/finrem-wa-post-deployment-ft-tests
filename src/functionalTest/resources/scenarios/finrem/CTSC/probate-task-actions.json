@@ -1,7 +1,7 @@
 {
-  "description": "probate create ExamineDigitalCaseProbate task Actions",
+  "description": "finrem create ExamineDigitalCaseFinrem task Actions",
   "enabled": true,
-  "jurisdiction": "PROBATE",
+  "jurisdiction": "FINREM",
   "caseType": "GrantOfRepresentation",
   "options": {
     "taskRetrievalApi": "task-management-api"
@@ -14,7 +14,7 @@
       {
         "eventId": "applyforGrantPaperApplicationMan",
         "caseData": {
-          "template": "minimal-probate.json",
+          "template": "minimal-finrem.json",
           "replacements": {
           }
         }
@@ -30,7 +30,7 @@
         "eventMessages": [
           {
             "destination": "RestEndpoint",
-            "template": "minimal-ccd-event-message-probate.json",
+            "template": "minimal-ccd-event-message-finrem.json",
             "replacements": {
               "EventId": "handleEvidence",
               "NewStateId": "CasePrinted"
@@ -47,7 +47,7 @@
         "status": 200,
         "numberOfTasksAvailable": 1,
         "taskData": {
-          "template": "minimal-task-response-probate.json",
+          "template": "minimal-task-response-finrem.json",
           "replacements": {
             "tasks": [
               {
@@ -56,11 +56,11 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "ExamineDigitalCaseProbate"
+                    "value": "ExamineDigitalCaseFinrem"
                   }
                 ],
-                "type": "ExamineDigitalCaseProbate",
-                "name": "Examine Digital Case - Probate",
+                "type": "ExamineDigitalCaseFinrem",
+                "name": "Examine Digital Case - Finrem",
                 "minor_priority": 500,
                 "major_priority": 5000,
                 "description": "[Select For QA](/cases/case-details/${[CASE_REFERENCE]}/trigger/boSelectForQA)"
@@ -88,7 +88,7 @@
         "status": 200,
         "numberOfTasksAvailable": 1,
         "taskData": {
-          "template": "minimal-task-response-probate.json",
+          "template": "minimal-task-response-finrem.json",
           "replacements": {
             "tasks": [
               {
@@ -97,11 +97,11 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "ExamineDigitalCaseProbate"
+                    "value": "ExamineDigitalCaseFinrem"
                   }
                 ],
-                "type": "ExamineDigitalCaseProbate",
-                "name": "Examine Digital Case - Probate",
+                "type": "ExamineDigitalCaseFinrem",
+                "name": "Examine Digital Case - Finrem",
                 "minor_priority": 500,
                 "major_priority": 5000,
                 "description": "[Select For QA](/cases/case-details/${[CASE_REFERENCE]}/trigger/boSelectForQA)"

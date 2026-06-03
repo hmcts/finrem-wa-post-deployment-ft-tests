@@ -64,19 +64,19 @@ public class ScenarioSources {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        //scenarioPattern = "probate.json";
+        //scenarioPattern = "finrem.json";
 
         Collection<String> scenarioSources;
         try {
             scenarioSources = StringResourceLoader
-                .load("/scenarios/probate/" + scenarioFolder + "/" + scenarioPattern)
+                .load("/scenarios/finrem/" + scenarioFolder + "/" + scenarioPattern)
                 .values();
         } catch (IOException exception) {
             log.info("No scenarios found at {}", scenarioFolder);
             return Stream.of(Arguments.of(Named.of(scenarioFolder + " is empty", null)));
         }
 
-        Logger.say(SCENARIO_START, scenarioSources.size() + " PROBATE");
+        Logger.say(SCENARIO_START, scenarioSources.size() + " FINREM");
 
         return scenarioSources.stream().map(scenarioSource -> {
             String displayName;

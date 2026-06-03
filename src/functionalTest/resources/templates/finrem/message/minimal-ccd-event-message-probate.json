@@ -2,7 +2,7 @@
   "EventInstanceId": "{$RANDOM_UUID}",
   "CaseId": "{$GENERATED_CASE_ID}",
   "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
-  "JurisdictionId": "PROBATE",
+  "JurisdictionId": "FINREM",
   "CaseTypeId": "GrantOfRepresentation",
   "UserId": "{$USER_ID}"
 }

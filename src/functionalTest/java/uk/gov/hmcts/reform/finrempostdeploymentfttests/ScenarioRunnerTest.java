@@ -152,14 +152,14 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     @ParameterizedTest(name = "{index} {0}")
-    @MethodSource("uk.gov.hmcts.reform.probatepostdeploymentfttests.ScenarioSources#ctscScenarios")
+    @MethodSource("uk.gov.hmcts.reform.finrempostdeploymentfttests.ScenarioSources#ctscScenarios")
     public void ctsc_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping CTSC scenarios");
         runScenarioBySource(scenarioSource, retryCount);
     }
 
     @ParameterizedTest(name = "{index} {0}")
-    @MethodSource("uk.gov.hmcts.reform.probatepostdeploymentfttests.ScenarioSources#judgeScenarios")
+    @MethodSource("uk.gov.hmcts.reform.finrempostdeploymentfttests.ScenarioSources#judgeScenarios")
     @Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Judge scenarios");
@@ -167,7 +167,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     @ParameterizedTest(name = "{index} {0}")
-    @MethodSource("uk.gov.hmcts.reform.probatepostdeploymentfttests.ScenarioSources#legalOfficerScenarios")
+    @MethodSource("uk.gov.hmcts.reform.finrempostdeploymentfttests.ScenarioSources#legalOfficerScenarios")
     @Disabled("No legal officer scenarios yet")
     public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Legal Officer scenarios");

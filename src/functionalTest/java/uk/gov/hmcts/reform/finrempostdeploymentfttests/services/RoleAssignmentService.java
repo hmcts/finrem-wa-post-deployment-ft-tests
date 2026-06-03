@@ -122,7 +122,7 @@ public class RoleAssignmentService {
             roleName,
             JsonUtil.toJsonString(Map.of(
                 "caseType", "GrantOfRepresentation",
-                "jurisdiction", "PROBATE",
+                "jurisdiction", "FINREM",
                 "primaryLocation", "765324"
             )),
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,

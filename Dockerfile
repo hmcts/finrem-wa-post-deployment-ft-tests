@@ -8,4 +8,4 @@ COPY lib/AI-Agent.xml /opt/app/
 COPY build/libs/wa-post-deployment-ft-tests.jar /opt/app/
 
 EXPOSE 8888
-CMD [ "probate-wa-post-deployment-ft-tests.jar" ]
+CMD [ "finrem-wa-post-deployment-ft-tests.jar" ]

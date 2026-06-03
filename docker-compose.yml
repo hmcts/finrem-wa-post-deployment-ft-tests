@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-  probate-wa-post-deployment-ft-tests:
+  finrem-wa-post-deployment-ft-tests:
     build:
       context: .
       args:

@@ -65,8 +65,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     @Override
-    public Headers getProbateSystemUserAuthorization() {
-        return getSystemUserAuthorization("ProbateSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
+    public Headers getFinremSystemUserAuthorization() {
+        return getSystemUserAuthorization("FinremSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
     }
 
     public Headers getSystemUserAuthorization(String key, String envUsername, String envPassword) {
@@ -85,7 +85,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         if ("WaSystemUser".equals(request.getCredentialsKey())) {
             return getSystemUserAuthorization("WaSystemUser", "WA_SYSTEM_USERNAME", "WA_SYSTEM_PASSWORD");
         } else if ("systemupdate".equals(request.getCredentialsKey())) {
-            return getSystemUserAuthorization("ProbateSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
+            return getSystemUserAuthorization("FinremSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
         } else {
 
             String userEmail = findOrGenerateUserAccount(request.getCredentialsKey(), request.isGranularPermission());
@@ -171,12 +171,12 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     private String generateUserAccount(String credentialsKey, boolean granularPermission) {
-        String emailPrefix = granularPermission ? "wa-ft" : "probate-";
+        String emailPrefix = granularPermission ? "wa-ft" : "finrem-";
         String userEmail = emailPrefix + UUID.randomUUID() + "@fake.hmcts.net";
 
         List<RoleCode> requiredRoles = new ArrayList<>(List.of(
             new RoleCode("caseworker"),
-            new RoleCode("caseworker-probate")
+            new RoleCode("caseworker-finrem")
         ));
 
         log.info("Attempting to create a new test account {}", userEmail);
@@ -204,7 +204,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         Map<String, Object> body = new ConcurrentHashMap<>();
         body.put("email", userEmail);
         body.put("password", WA_USER_PASSWORD);
-        body.put("forename", "Probate");
+        body.put("forename", "Finrem");
         body.put("surname", "Functional");
         body.put("roles", requiredRoles);
         body.put("userGroup", userGroup);

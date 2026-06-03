@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": "{$VERIFIER-UUID}",
-      "jurisdiction": "PROBATE",
+      "jurisdiction": "FINREM",
       "case_type_id": "GrantOfRepresentation",
       "case_id": "{$GENERATED_CASE_ID}",
       "case_name": "Joe Bloggs",

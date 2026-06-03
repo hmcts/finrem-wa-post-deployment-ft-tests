@@ -3,13 +3,13 @@ steps:
 
   - id: build
     build: >
-      -t {{.Run.Registry}}/probate/wa-post-deployment-ft-tests:latest -t {{.Run.Registry}}/probate/wa-post-deployment-ft-tests:{{.Run.ID}}
+      -t {{.Run.Registry}}/finrem/wa-post-deployment-ft-tests:latest -t {{.Run.Registry}}/finrem/wa-post-deployment-ft-tests:{{.Run.ID}}
       .
     keep: true
 
   - id: push
     push:
-      - "{{.Run.Registry}}/probate/wa-post-deployment-ft-tests:{{.Run.ID}}"
-      - "{{.Run.Registry}}/probate/wa-post-deployment-ft-tests:latest"
+      - "{{.Run.Registry}}/finrem/wa-post-deployment-ft-tests:{{.Run.ID}}"
+      - "{{.Run.Registry}}/finrem/wa-post-deployment-ft-tests:latest"
     when:
       - build

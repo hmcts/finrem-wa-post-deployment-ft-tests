@@ -1,6 +1,6 @@
 # finrem-wa-post-deployment-ft-tests
 
-[![Build Status](https://travis-ci.org/hmcts/probate-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/probate-wa-post-deployment-ft-tests)
+[![Build Status](https://travis-ci.org/hmcts/finrem-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/finrem-wa-post-deployment-ft-tests)
 
 ## Purpose
 This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
@@ -99,12 +99,12 @@ FT_ENV=<demo or aat> ./gradlew run-ft-preview
 ```
 #### You can also target a specific scenario:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=probate-10005-review-fta-time-extension-request
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=finrem-10005-review-fta-time-extension-request
 ```
 
 #### Or multiple scenarios:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=probate-10005
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=finrem-10005
 ```
 
 ## License

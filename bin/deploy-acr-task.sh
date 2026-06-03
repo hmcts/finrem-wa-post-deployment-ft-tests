@@ -6,7 +6,7 @@ GITHUB_TOKEN=$(az keyvault secret show --vault-name infra-vault-prod --name hmct
 az acr task create \
     --registry hmctsprod \
     --subscription DCD-CNP-PROD \
-    --name task-probate-wa-post-deployment-ft-tests \
+    --name task-finrem-wa-post-deployment-ft-tests \
     --file acr-build-task.yaml \
-    --context https://github.com/hmcts/probate-wa-post-deployment-ft-tests.git \
+    --context https://github.com/hmcts/finrem-wa-post-deployment-ft-tests.git \
     --git-access-token $GITHUB_TOKEN

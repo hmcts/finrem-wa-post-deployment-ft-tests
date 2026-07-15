@@ -2,10 +2,10 @@
   "tasks": [
     {
       "id": "{$VERIFIER-UUID}",
-      "jurisdiction": "FINREM",
-      "case_type_id": "GrantOfRepresentation",
+      "jurisdiction": "DIVORCE",
+      "case_type_id": "FinancialRemedyMVP2",
       "case_id": "{$GENERATED_CASE_ID}",
-      "case_name": "Joe Bloggs",
+      "case_name": "Financial Remedy",
       "case_category": "Personal Independence Payment",
       "location": "698118",
       "location_name": "BRADFORD",

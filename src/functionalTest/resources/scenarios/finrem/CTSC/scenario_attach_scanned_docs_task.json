@@ -1,0 +1,72 @@
+{
+  "description": "finrem create Attach scanned docs task",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "attachScannedDocs",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": {
+        "key": "caseworker"
+      },
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "minimal-ccd-event-message-finrem.json",
+            "replacements": {
+              "EventId": "handleEvidence",
+              "NewStateId": "CasePrinted"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response-finrem.json",
+          "replacements": {
+            "tasks": [
+              {
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "ExamineDigitalCaseFinrem"
+                  }
+                ],
+                "type": "ExamineDigitalCaseFinrem",
+                "name": "Examine Digital Case - Finrem",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "description": "[Select For QA](/cases/case-details/${[CASE_REFERENCE]}/trigger/boSelectForQA)"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

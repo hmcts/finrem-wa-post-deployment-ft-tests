@@ -303,7 +303,7 @@ tasks.register('run-ft-remote-environment', Test) {
         environment "DOCUMENT_STORE_URL", "http://dm-store-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
 
         if(TEST_ENVIRONMENT == 'preview') {
-            environment "CCD_URL", "https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
+            environment "CCD_URL", "https://ccd-data-store-api-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
             environment "WA_TASK_MANAGEMENT_API_URL", "https://wa-task-management-api-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
             environment "WA_TASK_MONITOR_URL", "https://wa-task-monitor-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
             environment "CAMUNDA_URL", "https://camunda-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net/engine-rest"

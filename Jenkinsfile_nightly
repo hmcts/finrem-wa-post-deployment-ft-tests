@@ -16,8 +16,8 @@ def secrets = [
   ],
   'finrem-${env}': [
     secret('finrem-servicebus-connection-string-tf', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
-    secret('idam-finrem-systemupdate-user', 'SYSTEMUPDATE_USERNAME'),
-    secret('idam-finrem-systemupdate-password', 'SYSTEMUPDATE_PASSWORD'),
+    secret('finrem-system-update-username', 'SYSTEMUPDATE_USERNAME'),
+    secret('finrem-system-update-password', 'SYSTEMUPDATE_PASSWORD'),
   ]
 ]
 
@@ -55,7 +55,7 @@ withNightlyPipeline(type, product, component) {
   def FINREM_WA_PR = "3791"
 
   env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-  env.CCD_URL="https://ccd-data-store-api-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
+  env.CCD_URL="https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
   env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
   env.WA_TASK_MONITOR_URL="https://wa-task-monitor-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
   env.CAMUNDA_URL="https://camunda-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net/engine-rest"

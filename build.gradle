@@ -303,7 +303,7 @@ tasks.register('run-ft-remote-environment', Test) {
         environment "DOCUMENT_STORE_URL", "http://dm-store-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
 
         if(TEST_ENVIRONMENT == 'preview') {
-            environment "CCD_URL", "https://ccd-data-store-api-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "CCD_URL", "https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
             environment "WA_TASK_MANAGEMENT_API_URL", "https://wa-task-management-api-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
             environment "WA_TASK_MONITOR_URL", "https://wa-task-monitor-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
             environment "CAMUNDA_URL", "https://camunda-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net/engine-rest"
@@ -324,8 +324,8 @@ tasks.register('run-ft-remote-environment', Test) {
             'WA_SYSTEM_PASSWORD'                : ["wa-${FT_ENV}", 'wa-system-password'],
             'S2S_SECRET_TASK_MANAGEMENT_API'    : ["wa-${FT_ENV}", 's2s-secret-task-management-api'],
             'AZURE_SERVICE_BUS_CONNECTION_STRING': ["finrem-${FT_ENV}", 'finrem-servicebus-connection-string-tf'],
-            'SYSTEMUPDATE_USERNAME'             : ["finrem-${FT_ENV}", 'idam-finrem-systemupdate-user'],
-            'SYSTEMUPDATE_PASSWORD'             : ["finrem-${FT_ENV}", 'idam-finrem-systemupdate-password']
+            'SYSTEMUPDATE_USERNAME'             : ["finrem-${FT_ENV}", 'finrem-system-update-username'],
+            'SYSTEMUPDATE_PASSWORD'             : ["finrem-${FT_ENV}", 'finrem-system-update-password']
         ]
 
         secretsToFetch.each { envVar, vaultAndSecret ->

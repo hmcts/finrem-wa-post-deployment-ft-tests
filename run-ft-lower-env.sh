@@ -66,7 +66,7 @@ loadSecret "WA_SYSTEM_PASSWORD" ${WA_VAULT_NAME} "wa-system-password"
 loadSecret "S2S_SECRET_TASK_MANAGEMENT_API" ${WA_VAULT_NAME} "s2s-secret-task-management-api"
 
 loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${FINREM_VAULT_NAME} "finrem-servicebus-connection-string-tf"
-loadSecret "SYSTEMUPDATE_USERNAME" ${FINREM_VAULT_NAME} "idam-finrem-systemupdate-user"
-loadSecret "SYSTEMUPDATE_PASSWORD" ${FINREM_VAULT_NAME} "idam-finrem-systemupdate-password"
+loadSecret "SYSTEMUPDATE_USERNAME" ${FINREM_VAULT_NAME} "finrem-system-update-username"
+loadSecret "SYSTEMUPDATE_PASSWORD" ${FINREM_VAULT_NAME} "finrem-system-update-password"
 
 ./gradlew functional --tests ScenarioRunnerTest --info

@@ -45,7 +45,7 @@ public class RoleAssignmentService {
     static {
         try {
             Map<String, String> templates = StringResourceLoader.load(
-                "/templates/finrem/roleAssignment/*.json"
+                    "/templates/divorce/roleAssignment/*.json"
             );
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE = templates.get("set-organisational-role-assignment-request.json");
         } catch (IOException e) {

@@ -22,11 +22,11 @@ export OPEN_ID_IDAM_URL=https://idam-web-public.aat.platform.hmcts.net
 export DOCUMENT_STORE_URL=http://dm-store-aat.service.core-compute-aat.internal
 export WA_POST_DEPLOYMENT_TEST_ENVIRONMENT=preview
 export CCD_URL=https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
-export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
-export WA_TASK_MONITOR_URL=https://wa-task-monitor-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
-export CAMUNDA_URL=https://camunda-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net/engine-rest
-export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
-export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-finrem-back-office-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
+export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
+export WA_TASK_MONITOR_URL=https://wa-task-monitor-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
+export CAMUNDA_URL=https://camunda-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net/engine-rest
+export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
+export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net
 
 # Set environment variable from Azure secret vault
 # Parameters: <Environment variable name> <Vault Name> <Secret Name>

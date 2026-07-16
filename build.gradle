@@ -304,11 +304,11 @@ tasks.register('run-ft-remote-environment', Test) {
 
         if(TEST_ENVIRONMENT == 'preview') {
             environment "CCD_URL", "https://ccd-data-store-api-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
-            environment "WA_TASK_MANAGEMENT_API_URL", "https://wa-task-management-api-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
-            environment "WA_TASK_MONITOR_URL", "https://wa-task-monitor-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
-            environment "CAMUNDA_URL", "https://camunda-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net/engine-rest"
-            environment "ROLE_ASSIGNMENT_URL", "https://am-role-assignment-service-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
-            environment "WA_CASE_EVENT_HANDLER_URL", "https://wa-case-event-handler-finrem-back-office-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_TASK_MANAGEMENT_API_URL", "https://wa-task-management-api-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_TASK_MONITOR_URL", "https://wa-task-monitor-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "CAMUNDA_URL", "https://camunda-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net/engine-rest"
+            environment "ROLE_ASSIGNMENT_URL", "https://am-role-assignment-service-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_CASE_EVENT_HANDLER_URL", "https://wa-case-event-handler-finrem-ccd-definitions-pr-${PR_NUMBER}.preview.platform.hmcts.net"
         } else {
             environment "CCD_URL", "http://ccd-data-store-api-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
             environment "WA_TASK_MANAGEMENT_API_URL", "http://wa-task-management-api-${FT_ENV}.service.core-compute-${FT_ENV}.internal"

@@ -121,8 +121,8 @@ public class RoleAssignmentService {
             userInfo.getUid(),
             roleName,
             JsonUtil.toJsonString(Map.of(
-                "caseType", "GrantOfRepresentation",
-                "jurisdiction", "FINREM",
+                "caseType", "FinancialRemedyMVP2",
+                "jurisdiction", "DIVORCE",
                 "primaryLocation", "765324"
             )),
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,

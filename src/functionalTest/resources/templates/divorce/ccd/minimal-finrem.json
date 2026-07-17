@@ -1,5 +1,6 @@
 {
   "isAdmin": "No",
+  "state": "newPaperCase",
   "d81Joint": {
     "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
     "document_filename": "test.pdf",
@@ -37,28 +38,6 @@
   "otherDocLabel": "Upload other order documentation related to your application",
   "solicitorFirm": "FinRem-1-Org",
   "solicitorName": "Bilbo Baggins",
-  "SearchCriteria": {
-    "SearchParties": [
-      {
-        "id": "31bb2b6d-9331-44e6-abf4-300ec9d2fd82",
-        "value": {
-          "Name": "Frodo Baggins"
-        }
-      },
-      {
-        "id": "511521b1-dcad-4282-a0c9-9128534575af",
-        "value": {
-          "Name": "Smeagol Gollum"
-        }
-      }
-    ],
-    "OtherCaseReferences": [
-      {
-        "id": "01e34ab2-81f1-4a2f-a407-198c1790fd2f",
-        "value": "ZZ21D47302"
-      }
-    ]
-  },
   "applicantFlags": {
     "details": [],
     "partyName": "Frodo Baggins",

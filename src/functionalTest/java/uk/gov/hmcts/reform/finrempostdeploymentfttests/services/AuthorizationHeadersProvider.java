@@ -176,7 +176,11 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
         List<RoleCode> requiredRoles = new ArrayList<>(List.of(
             new RoleCode("caseworker"),
-            new RoleCode("caseworker-finrem")
+            new RoleCode("caseworker-divorce"),
+            new RoleCode("caseworker-divorce-financialremedy"),
+            new RoleCode("caseworker-divorce-financialremedy-courtadmin"),
+            new RoleCode("caseworker-divorce-financialremedy-judiciary")
+
         ));
 
         log.info("Attempting to create a new test account {}", userEmail);
@@ -218,7 +222,6 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
             case "systemupdate":
                 break;
             case "caseworker":
-                roleAssignments.add("tribunal-caseworker");
                 roleAssignments.add("ctsc");
                 break;
             case "judge":

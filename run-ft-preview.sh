@@ -46,5 +46,5 @@ loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${FINREM_VAULT_NAME} "finrem-se
 loadSecret "SYSTEMUPDATE_USERNAME" ${FINREM_VAULT_NAME} "finrem-system-update-username"
 loadSecret "SYSTEMUPDATE_PASSWORD" ${FINREM_VAULT_NAME} "finrem-system-update-password"
 
-./gradlew functional --tests ScenarioRunnerTest --info --debug-jvm
-#./gradlew functional --tests ScenarioRunnerTest --info
+#./gradlew functional --tests ScenarioRunnerTest --info --debug-jvm
+./gradlew functional --tests ScenarioRunnerTest --info

@@ -36,7 +36,7 @@ public class RoleAssignmentService {
     private final RoleAssignmentServiceApiClient roleAssignmentServiceApi;
 
     private Map<String,String> roleToCategoryMap = Map.of(
-        "tribunal-caseworker", "LEGAL_OPERATIONS",
+        "tribunal-caseworker", "CTSC",
         "judge", "JUDICIAL",
         "ctsc", "CTSC",
         "regional-centre-admin", "ADMIN"
@@ -82,7 +82,7 @@ public class RoleAssignmentService {
         String roleType = MapValueExtractor.extractOrThrow(replacementsValues, "roleType");
         String classification = MapValueExtractor.extractOrDefault(replacementsValues, "classification", "PUBLIC");
         String roleCategory = MapValueExtractor.extractOrDefault(replacementsValues,
-                                                                 "roleCategory", "LEGAL_OPERATIONS");
+                                                                 "roleCategory", "CTSC");
 
         postRoleAssignment(
             caseId,
@@ -114,6 +114,12 @@ public class RoleAssignmentService {
     }
 
     public void setupRoleAssignment(Headers headers, UserInfo userInfo, String roleName) {
+
+        String authorizations=JsonUtil.toJsonString(List.of());
+        if (roleName.equals("ctsc")) {
+            authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments"));
+        }
+
         postRoleAssignment(
             null,
             headers.getValue(AuthorizationHeadersProvider.AUTHORIZATION),
@@ -127,8 +133,8 @@ public class RoleAssignmentService {
             )),
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,
             "STANDARD",
-            roleToCategoryMap.getOrDefault(roleName, "LEGAL_OPERATIONS"),
-            JsonUtil.toJsonString(List.of()),
+            roleToCategoryMap.getOrDefault(roleName, "CTSC"),
+            authorizations,
             "ORGANISATION",
             "PUBLIC",
             "staff-organisational-role-mapping",

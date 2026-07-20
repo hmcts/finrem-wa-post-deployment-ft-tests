@@ -221,8 +221,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
             case "superuser":
             case "systemupdate":
                 break;
-            case "caseworker":
-                roleAssignments.add("ctsc");
+            case "ctsc-team-leader":
+                roleAssignments.add("ctsc-team-leader");
                 break;
             case "judge":
                 roleAssignments.add("judge");

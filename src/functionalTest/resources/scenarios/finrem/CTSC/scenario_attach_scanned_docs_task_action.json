@@ -1,8 +1,8 @@
 {
-  "description": "finrem create ExamineDigitalCaseFinrem task Actions",
+  "description": "finrem create Attach scanned docs task actions",
   "enabled": true,
-  "jurisdiction": "FINREM",
-  "caseType": "GrantOfRepresentation",
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
   "options": {
     "taskRetrievalApi": "task-management-api"
   },
@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "applyforGrantPaperApplicationMan",
+        "eventId": "FR_newPaperCase",
         "caseData": {
           "template": "minimal-finrem.json",
           "replacements": {
@@ -24,7 +24,7 @@
   "before": {
     "request": {
       "credentials": {
-        "key": "caseworker"
+        "key": "CTSC-Administrator"
       },
       "input": {
         "eventMessages": [
@@ -32,8 +32,8 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message-finrem.json",
             "replacements": {
-              "EventId": "handleEvidence",
-              "NewStateId": "CasePrinted"
+              "EventId": "attachScannedDocs",
+              "NewStateId": "FR_newPaperCase"
             }
           }
         ]
@@ -42,7 +42,7 @@
     "expectations": [
       {
         "credentials": {
-          "key": "CTSC-Administrator"
+          "key": "ctsc-team-leader"
         },
         "status": 200,
         "numberOfTasksAvailable": 1,
@@ -56,14 +56,14 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "ExamineDigitalCaseFinrem"
+                    "value": "processScannedDocuments"
                   }
                 ],
-                "type": "ExamineDigitalCaseFinrem",
-                "name": "Examine Digital Case - Finrem",
+                "type": "processScannedDocuments",
+                "name": "Process Scanned Documents",
                 "minor_priority": 500,
                 "major_priority": 5000,
-                "description": "[Select For QA](/cases/case-details/${[CASE_REFERENCE]}/trigger/boSelectForQA)"
+                "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
               }
             ]
           }
@@ -75,14 +75,14 @@
     "request": {
       "type": "CLAIM",
       "credentials": {
-        "key": "caseworker",
+        "key": "CTSC-Administrator",
         "granularPermission": true
       }
     },
     "expectations": [
       {
         "credentials": {
-          "key": "CTSC-Administrator",
+          "key": "ctsc-team-leader",
           "granularPermission": true
         },
         "status": 200,
@@ -97,14 +97,15 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "ExamineDigitalCaseFinrem"
+                    "value": "processScannedDocuments"
                   }
                 ],
-                "type": "ExamineDigitalCaseFinrem",
-                "name": "Examine Digital Case - Finrem",
+                "assignee": "{$ASSIGNEE_ID}",
+                "type": "processScannedDocuments",
+                "name": "Process Scanned Documents",
                 "minor_priority": 500,
                 "major_priority": 5000,
-                "description": "[Select For QA](/cases/case-details/${[CASE_REFERENCE]}/trigger/boSelectForQA)"
+                "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
               }
             ]
           }

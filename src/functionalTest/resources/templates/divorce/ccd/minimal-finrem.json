@@ -1,0 +1,122 @@
+{
+  "isAdmin": "No",
+  "state": "newPaperCase",
+  "d81Joint": {
+    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
+    "document_filename": "test.pdf",
+    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
+  },
+  "HWFNumber": "HWF1234",
+  "caseFlags": {
+    "details": [],
+    "partyName": "Case",
+    "roleOnCase": "Case"
+  },
+  "regionList": "midlands",
+  "amountToPay": "6200",
+  "d81Question": "Yes",
+  "consentOrder": {
+    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
+    "document_filename": "test.pdf",
+    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
+  },
+  "orderSummary": {
+    "Fees": [
+      {
+        "id": "28c48828-92c0-4917-87af-ab1a1f8ac714",
+        "value": {
+          "FeeCode": "FEE0228",
+          "FeeAmount": "6200",
+          "FeeVersion": "6",
+          "FeeDescription": "Application (without notice)"
+        }
+      }
+    ],
+    "PaymentTotal": "6200",
+    "PaymentReference": null
+  },
+  "otherDocLabel": "Upload other order documentation related to your application",
+  "solicitorFirm": "FinRem-1-Org",
+  "solicitorName": "Bilbo Baggins",
+  "applicantFlags": {
+    "details": [],
+    "partyName": "Frodo Baggins",
+    "roleOnCase": "Applicant"
+  },
+  "applicantLName": "Baggins",
+  "authorisation3": "2025-06-03",
+  "rSolicitorFirm": "Finrem Org 2",
+  "rSolicitorName": "Sauron",
+  "solicitorEmail": "fr_applicant_solicitor1@mailinator.com",
+  "solicitorPhone": "01626 777514",
+  "applicantFMName": "Frodo",
+  "authorisation2b": "test",
+  "midlandsFRCList": "nottingham",
+  "rSolicitorEmail": "fr_respondent_solicitor1@mailinator.com",
+  "rSolicitorPhone": "07821 639001",
+  "respondentFlags": {
+    "details": [],
+    "partyName": "Smeagol Gollum",
+    "roleOnCase": "Respondent"
+  },
+  "appRespondentRep": "Yes",
+  "civilPartnership": "No",
+  "solicitorAddress": {
+    "County": "Greater London",
+    "PostCode": "EC3A 2AD",
+    "PostTown": "London",
+    "AddressLine1": "3rd Floor, 65-68 Leadenhall St"
+  },
+  "authorisationFirm": "test",
+  "authorisationName": "test",
+  "divorceCaseNumber": "ZZ21D47302",
+  "rSolicitorAddress": {
+    "County": "",
+    "Country": "United Kingdom",
+    "PostCode": "EC3A 2AD",
+    "PostTown": "London",
+    "AddressLine1": "Water Unite, 65-68",
+    "AddressLine2": "Leadenhall Street",
+    "AddressLine3": ""
+  },
+  "appRespondentLName": "Gollum",
+  "latestConsentOrder": {
+    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
+    "document_filename": "test.pdf",
+    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
+  },
+  "solicitorReference": "Y707HZM",
+  "appRespondentFMName": "Smeagol",
+  "divorceStageReached": "Decree Nisi",
+  "nottinghamCourtList": "FR_nottinghamList_3",
+  "applicantRepresented": "Yes",
+  "helpWithFeesQuestion": "Yes",
+  "natureOfApplication2": [
+    "Maintenance Pending Suit"
+  ],
+  "divorceDecreeNisiDate": "2024-01-01",
+  "divorceUploadEvidence1": {
+    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
+    "document_filename": "test.pdf",
+    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
+  },
+  "ApplicantOrganisationPolicy": {
+    "Organisation": {
+      "OrganisationID": "Y707HZM",
+      "OrganisationName": "FinRem-1-Org"
+    },
+    "PreviousOrganisations": [],
+    "OrgPolicyCaseAssignedRole": "[APPSOLICITOR]"
+  },
+  "consentVariationOrderLabelC": "Consent Order",
+  "consentVariationOrderLabelL": "consent order",
+  "RespondentOrganisationPolicy": {
+    "Organisation": {
+      "OrganisationID": "95V5X7X",
+      "OrganisationName": "FinRem-2-Org"
+    },
+    "PreviousOrganisations": [],
+    "OrgPolicyCaseAssignedRole": "[RESPSOLICITOR]"
+  },
+  "solicitorAgreeToReceiveEmails": "Yes"
+}

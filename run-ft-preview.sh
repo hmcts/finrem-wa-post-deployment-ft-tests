@@ -46,5 +46,10 @@ loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${FINREM_VAULT_NAME} "finrem-se
 loadSecret "SYSTEMUPDATE_USERNAME" ${FINREM_VAULT_NAME} "finrem-system-update-username"
 loadSecret "SYSTEMUPDATE_PASSWORD" ${FINREM_VAULT_NAME} "finrem-system-update-password"
 
-#./gradlew functional --tests ScenarioRunnerTest --info --debug-jvm
-./gradlew functional --tests ScenarioRunnerTest --info
+if [[ "$2" == "debug" ]]; then
+  echo "Starting with debug enabled."
+  ./gradlew functional --tests ScenarioRunnerTest --info --debug-jvm
+else
+  echo "Starting with debug disabled."
+  ./gradlew functional --tests ScenarioRunnerTest --info
+fi

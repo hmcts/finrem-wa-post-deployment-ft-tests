@@ -1,0 +1,135 @@
+{
+  "description": "finrem create Attach scanned docs task actions",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "before": {
+    "request": {
+      "credentials": {
+        "key": "CTSC-Administrator"
+      },
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "minimal-ccd-event-message-finrem.json",
+            "replacements": {
+              "EventId": "FR_HWFDecisionMade",
+              "NewStateId": "applicationSubmitted"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": {
+          "key": "ctsc-team-leader"
+        },
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response-finrem.json",
+          "replacements": {
+            "tasks": [
+              {
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "checkApplication"
+                  }
+                ],
+                "type": "checkApplication",
+                "name": "Check and Issue Application",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "type": "CLAIM",
+      "credentials": {
+        "key": "CTSC-Administrator",
+        "granularPermission": true
+      }
+    },
+    "expectations": [
+      {
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        },
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response-finrem.json",
+          "replacements": {
+            "tasks": [
+              {
+                "task_state": "assigned",
+                "task_system": "SELF",
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "checkApplication"
+                  }
+                ],
+                "assignee": "{$ASSIGNEE_ID}",
+                "type": "checkApplication",
+                "name": "Check and Issue Application",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "request": {
+          "type": "COMPLETE",
+          "credentials": {
+            "key": "team-leader",
+            "granularPermission": true
+          }
+        },
+        "expectations": [
+          {
+            "credentials": {
+              "key": "CTSC-Administrator",
+              "granularPermission": true
+            },
+            "status": 200,
+            "numberOfTasksAvailable": 0
+          }
+        ]
+      }
+    ]
+  }
+}

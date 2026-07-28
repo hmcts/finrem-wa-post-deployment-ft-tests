@@ -1,0 +1,116 @@
+{
+  "description": "finrem create Submit response task",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "before": {
+    "request": {
+      "credentials": {
+        "key": "CTSC-Administrator"
+      },
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "minimal-ccd-event-message-finrem.json",
+            "replacements": {
+              "EventId": "FR_solCompleteUploadDocument",
+              "NewStateId": "infoReceived"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": {
+          "key": "ctsc-team-leader"
+        },
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response-finrem.json",
+          "replacements": {
+            "tasks": [
+              {
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "checkResponseReceived"
+                  }
+                ],
+                "type": "checkResponseReceived",
+                "name": "Check Response Received",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "description": "[Submit response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_solCompleteUploadDocument/FR_solCompleteUploadDocument1)"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "type": "CLAIM",
+      "credentials": {
+        "key": "CTSC-Administrator",
+        "granularPermission": true
+      }
+    },
+    "expectations": [
+      {
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        },
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response-finrem.json",
+          "replacements": {
+            "tasks": [
+              {
+                "task_state": "assigned",
+                "task_system": "SELF",
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "checkResponseReceived"
+                  }
+                ],
+                "assignee": "{$ASSIGNEE_ID}",
+                "type": "checkResponseReceived",
+                "name": "Check Response Received",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "description": "[Submit response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_solCompleteUploadDocument/FR_solCompleteUploadDocument1)"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

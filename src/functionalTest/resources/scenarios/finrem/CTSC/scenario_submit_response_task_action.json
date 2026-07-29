@@ -1,5 +1,5 @@
 {
-  "description": "finrem create Submit response task",
+  "description": "finrem create Submit response task actions",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -110,6 +110,25 @@
             ]
           }
         }
+      },
+      {
+        "request": {
+          "type": "COMPLETE",
+          "credentials": {
+            "key": "team-leader",
+            "granularPermission": true
+          }
+        },
+        "expectations": [
+          {
+            "credentials": {
+              "key": "CTSC-Administrator",
+              "granularPermission": true
+            },
+            "status": 200,
+            "numberOfTasksAvailable": 0
+          }
+        ]
       }
     ]
   }

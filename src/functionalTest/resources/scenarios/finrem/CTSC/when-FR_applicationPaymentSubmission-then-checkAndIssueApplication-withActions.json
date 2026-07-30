@@ -1,5 +1,5 @@
 {
-  "description": "finrem create tasks for the 'HWF Application Accepted' event.",
+  "description": "DFR-4603: When FR_applicationPaymentSubmission is run then the checkAndIssueApplication task is created.",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -21,7 +21,7 @@
       }
     ]
   },
-  "test": {
+  "before": {
     "request": {
       "credentials": {
         "key": "CTSC-Administrator"
@@ -32,8 +32,13 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message-finrem.json",
             "replacements": {
-              "EventId": "FR_caseSubmissionFromAwaitingInfo",
-              "NewStateId": "applicationSubmitted"
+              "EventId": "FR_applicationPaymentSubmission",
+              "NewStateId": "applicationSubmitted",
+              "AdditionalData": {
+                "Data": {
+                  "evidenceHandled": "No"
+                }
+              }
             }
           }
         ]
@@ -150,5 +155,70 @@
         ]
       }
     ]
-  }
+  },
+  "tests": [
+    {
+      "request": {
+        "type": "CLAIM",
+        "credentials": {
+          "key": "CTSC-Administrator",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "assigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkApplication"
+                    }
+                  ],
+                  "assignee": "{$ASSIGNEE_ID}",
+                  "type": "checkApplication",
+                  "name": "Check and Issue Application",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "request": {
+            "type": "COMPLETE",
+            "credentials": {
+              "key": "team-leader",
+              "granularPermission": true
+            }
+          },
+          "expectations": [
+            {
+              "credentials": {
+                "key": "CTSC-Administrator",
+                "granularPermission": true
+              },
+              "status": 200,
+              "numberOfTasksAvailable": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
+
+

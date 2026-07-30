@@ -67,7 +67,15 @@
                   ],
                   "type": "processScannedDocuments",
                   "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
+                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
+                  "task_title" : "Process Scanned Documents",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "evidence",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
                 }
               ]
             }

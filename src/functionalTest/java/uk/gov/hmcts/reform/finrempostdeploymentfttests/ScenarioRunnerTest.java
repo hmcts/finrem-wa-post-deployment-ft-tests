@@ -193,8 +193,8 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Logger.say(SCENARIO_ENABLED, description);
 
                 Map<String, Object> beforeClauseValues = extractOrDefault(scenarioValues, "before", null);
-                Map<String, Object> testClauseValues =
-                    Objects.requireNonNull(MapValueExtractor.extract(scenarioValues, "test"));
+                List<Map<String, Object>> testClauseValues = new ArrayList<>(Objects.requireNonNull(
+                    MapValueExtractor.extract(scenarioValues, "tests")));
                 Map<String, Object> postRoleAssignmentClauseValues = extractOrDefault(scenarioValues,
                     "postRoleAssignments", null);
                 Map<String, Object> updateCaseClauseValues = extractOrDefault(scenarioValues, "updateCase", null);
@@ -258,7 +258,9 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     private void processTestClauseScenario(TestScenario scenario) throws Exception {
-        processScenario(scenario.getTestClauseValues(), scenario);
+        for (Map<String, Object> testClause : scenario.getTestClauseValues()) {
+            processScenario(testClause, scenario);
+        }
     }
 
     private void createBaseCcdCase(TestScenario scenario) throws IOException {

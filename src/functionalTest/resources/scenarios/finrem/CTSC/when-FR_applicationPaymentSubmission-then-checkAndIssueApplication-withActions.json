@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4603: When FR_applicationPaymentSubmission is run then the checkAndIssueApplication task is created.",
+  "description": "DFR-4603: When FR_applicationPaymentSubmission is run then the checkAndIssueApplication task is created, claimed and completed.",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -21,142 +21,146 @@
       }
     ]
   },
-  "before": {
-    "request": {
-      "credentials": {
-        "key": "CTSC-Administrator"
-      },
-      "input": {
-        "eventMessages": [
-          {
-            "destination": "RestEndpoint",
-            "template": "minimal-ccd-event-message-finrem.json",
-            "replacements": {
-              "EventId": "FR_applicationPaymentSubmission",
-              "NewStateId": "applicationSubmitted",
-              "AdditionalData": {
-                "Data": {
-                  "evidenceHandled": "No"
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "expectations": [
-      {
+  "tests": [{
+      "request": {
         "credentials": {
           "key": "CTSC-Administrator"
         },
-        "status": 200,
-        "numberOfTasksAvailable": 1,
-        "taskData": {
-          "template": "minimal-task-response-finrem.json",
-          "replacements": {
-            "tasks": [
-              {
-                "test_meta_data": [
-                  {
-                    "key": "role_data_reference",
-                    "value": "checkApplication"
-                  }
-                ],
-                "type": "checkApplication",
-                "name": "Check and Issue Application",
-                "minor_priority": 500,
-                "major_priority": 5000,
-                "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)"
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_applicationPaymentSubmission",
+                "NewStateId": "applicationSubmitted",
+                "AdditionalData": {
+                }
               }
-            ]
-          }
-        },
-        "roleData": [
-          {
-            "key": "checkApplication",
-            "numberOfRolesAvailable": 2,
-            "roles": [
-              {
-                "role_category": "CTSC",
-                "role_name": "ctsc",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Execute",
-                  "CompleteOwn",
-                  "CancelOwn",
-                  "Claim"
-                ],
-                "authorisations": [
-                  "SKILL:ABA2:CheckingApplications"
-                ]
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "ctsc-team-leader",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Execute",
-                  "Cancel",
-                  "Complete",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign"
-                ],
-                "authorisations": [
-                  "SKILL:ABA2:CheckingApplications"
-                ]
-              }
-            ]
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator"
           },
-          {
-            "key": "checkAndIssueApplication",
-            "numberOfRolesAvailable": 2,
-            "roles": [
-              {
-                "role_category": "CTSC",
-                "role_name": "ctsc",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Execute",
-                  "CompleteOwn",
-                  "CancelOwn",
-                  "Claim"
-                ],
-                "authorisations": [
-                  "SKILL:ABA2:CheckingApplications"
-                ]
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "ctsc-team-leader",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Execute",
-                  "Cancel",
-                  "Complete",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign"
-                ],
-                "authorisations": [
-                  "SKILL:ABA2:CheckingApplications"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "tests": [
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkApplication"
+                    }
+                  ],
+                  "type": "checkApplication",
+                  "name": "Check and Issue Application",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
+                  "task_title" : "Check and Issue Application",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "applications",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "checkApplication",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingApplications"
+                  ]
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingApplications"
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "checkAndIssueApplication",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingApplications"
+                  ]
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingApplications"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "request": {
         "type": "CLAIM",
@@ -186,12 +190,17 @@
                       "value": "checkApplication"
                     }
                   ],
-                  "assignee": "{$ASSIGNEE_ID}",
                   "type": "checkApplication",
                   "name": "Check and Issue Application",
-                  "minor_priority": 500,
-                  "major_priority": 5000,
-                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)"
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
+                  "task_title" : "Check and Issue Application",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "applications",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
                 }
               ]
             }

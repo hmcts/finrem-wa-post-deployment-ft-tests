@@ -38,6 +38,7 @@ public class RoleAssignmentService {
     private Map<String,String> roleToCategoryMap = Map.of(
         "tribunal-caseworker", "CTSC",
         "judge", "JUDICIAL",
+        "leadership-judge", "JUDICIAL",
         "ctsc", "CTSC",
         "regional-centre-admin", "ADMIN"
     );
@@ -118,6 +119,8 @@ public class RoleAssignmentService {
         String authorizations = JsonUtil.toJsonString(List.of());
         if (roleName.equals("ctsc")) {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments"));
+        } else if (roleName.equals("judge") || roleName.equals("leadership-judge")) {
+            authorizations = JsonUtil.toJsonString(List.of("410"));
         }
 
         postRoleAssignment(

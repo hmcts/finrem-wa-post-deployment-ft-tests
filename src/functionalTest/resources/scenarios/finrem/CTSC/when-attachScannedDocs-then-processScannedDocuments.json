@@ -1,0 +1,188 @@
+{
+  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "attachScannedDocs",
+                "NewStateId": "FR_newPaperCase",
+                "AdditionalData": {
+                  "Data": {
+                    "evidenceHandled": "No"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processScannedDocuments"
+                    }
+                  ],
+                  "type": "processScannedDocuments",
+                  "name": "Process Scanned Documents",
+                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
+                  "task_title" : "Process Scanned Documents",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "evidence",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "processScannedDocuments",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:ManageScannedDocuments"
+                  ]
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:ManageScannedDocuments"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "CLAIM",
+        "credentials": {
+          "key": "CTSC-Administrator",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "assigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processScannedDocuments"
+                    }
+                  ],
+                  "assignee": "{$ASSIGNEE_ID}",
+                  "type": "processScannedDocuments",
+                  "name": "Process Scanned Documents",
+                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "COMPLETE",
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 0
+        }
+      ]
+    }
+  ]
+}

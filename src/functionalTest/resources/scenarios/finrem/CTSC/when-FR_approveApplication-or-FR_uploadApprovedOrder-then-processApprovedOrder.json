@@ -1,0 +1,189 @@
+{
+  "description": "DFR-4605: When FR_approveApplication events are run and the case is in the consentOrderApproved state, and there are pension documents on file, then the processApprovedOrder task is created, claimed and completed",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+            "state": "consentOrderApproved"
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_approveApplication",
+                "NewStateId": "consentOrderApproved",
+                "AdditionalData": {
+                  "Data": {
+                    "pensionCollection": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processApprovedOrder"
+                    }
+                  ],
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amended Consent Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendedConsentOrder/FR_amendedConsentOrder1)",
+                  "task_title" : "Process Approved Order",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "routine_work",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "processApprovedOrder",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:ProcessApprovedOrders"
+                  ]
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:ProcessApprovedOrders"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "CLAIM",
+        "credentials": {
+          "key": "CTSC-Administrator",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "assigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processApprovedOrder"
+                    }
+                  ],
+                  "assignee": "{$ASSIGNEE_ID}",
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amended Consent Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendedConsentOrder/FR_amendedConsentOrder1)"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "COMPLETE",
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 0
+        }
+      ]
+    }
+  ]
+}

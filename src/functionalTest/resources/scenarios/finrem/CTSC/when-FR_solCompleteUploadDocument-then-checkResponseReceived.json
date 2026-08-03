@@ -62,13 +62,13 @@
                   ],
                   "type": "checkResponseReceived",
                   "name": "Check Response Received",
-                  "description": "[Submit response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_solCompleteUploadDocument/FR_solCompleteUploadDocument1)",
+                  "description": "[Assign To Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_referToJudge/FR_referToJudge1)",
                   "task_title" : "Check Response Received",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
                   "case_name" : "Financial Remedy",
                   "case_management_category" : "FR Consented",
-                  "work_type_id" : "evidence",
+                  "work_type_id" : "routine_work",
                   "role_category" : "CTSC",
                   "case_type_id" : "FinancialRemedyMVP2"
                 }
@@ -152,7 +152,7 @@
                   "assignee": "{$ASSIGNEE_ID}",
                   "type": "checkResponseReceived",
                   "name": "Check Response Received",
-                  "description": "[Submit response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_solCompleteUploadDocument/FR_solCompleteUploadDocument1)"
+                  "description": "[Assign To Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_referToJudge/FR_referToJudge1)"
                 }
               ]
             }

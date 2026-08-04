@@ -58,10 +58,10 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "checkApplication"
+                      "value": "checkAndIssueApplication"
                     }
                   ],
-                  "type": "checkApplication",
+                  "type": "checkAndIssueApplication",
                   "name": "Check and Issue Application",
                   "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
                   "task_title" : "Check and Issue Application",
@@ -78,7 +78,7 @@
           },
           "roleData": [
             {
-              "key": "checkApplication",
+              "key": "checkAndIssueApplication",
               "numberOfRolesAvailable": 2,
               "roles": [
                 {
@@ -187,10 +187,10 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "checkApplication"
+                      "value": "checkAndIssueApplication"
                     }
                   ],
-                  "type": "checkApplication",
+                  "type": "checkAndIssueApplication",
                   "name": "Check and Issue Application",
                   "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
                   "task_title" : "Check and Issue Application",

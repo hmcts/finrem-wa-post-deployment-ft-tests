@@ -165,25 +165,25 @@
               ]
             }
           }
-        },
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "COMPLETE",
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
         {
-          "request": {
-            "type": "COMPLETE",
-            "credentials": {
-              "key": "team-leader",
-              "granularPermission": true
-            }
+          "credentials": {
+            "key": "CTSC-Administrator",
+            "granularPermission": true
           },
-          "expectations": [
-            {
-              "credentials": {
-                "key": "CTSC-Administrator",
-                "granularPermission": true
-              },
-              "status": 200,
-              "numberOfTasksAvailable": 0
-            }
-          ]
+          "status": 200,
+          "numberOfTasksAvailable": 0
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4605: When FR_approveApplication events are run and the case is in the consentOrderApproved state, and there are pension documents on file, then the processApprovedOrder task is created, claimed and completed",
+  "description": "DFR-4605: When FR_approveApplication is run and the case is in the consentOrderApproved state, and there are pension documents on file, then the processApprovedOrder task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -37,8 +37,14 @@
                 "EventId": "FR_approveApplication",
                 "NewStateId": "consentOrderApproved",
                 "AdditionalData": {
-                  "Data": {
-                    "pensionCollection": 1
+                  "Data":
+                  {
+                    "pensionCollection": [
+                      {
+                        "id": "67234",
+                        "value": "randomrandom"
+                      }
+                    ]
                   }
                 }
               }

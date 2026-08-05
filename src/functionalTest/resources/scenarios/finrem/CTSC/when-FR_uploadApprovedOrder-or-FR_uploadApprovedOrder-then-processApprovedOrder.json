@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4605: When FR_approveApplication is run and the case is in the consentOrderApproved state, and there is at least one pension documents on file, then the processApprovedOrder task is created, claimed and completed",
+  "description": "DFR-4605: When FR_uploadApprovedOrder is run and the case is in the consentOrderApproved state, and there is at least one pension documents on file, then the processApprovedOrder task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -34,7 +34,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "FR_approveApplication",
+                "EventId": "FR_uploadApprovedOrder",
                 "NewStateId": "consentOrderApproved",
                 "AdditionalData": {
                   "Data":

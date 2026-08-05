@@ -41,8 +41,15 @@
                   {
                     "pensionCollection": [
                       {
-                        "id": "67234",
-                        "value": "randomrandom"
+                        "id": "1",
+                        "value": {
+                          "typeOfDocument": "Form P1",
+                          "uploadedDocument": {
+                            "document_url": "http://file1",
+                            "document_filename": "file1",
+                            "document_binary_url": "http://file1.binary"
+                          }
+                        }
                       }
                     ]
                   }

@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4605: When FR_orderRefusal is run, then the reviewRefusedOrder task is created, claimed and completed",
+  "description": "DFR-4606: When FR_orderRefusal is run and hearing to be listed or manual refusal reason entered is true, then the reviewRefusedOrder task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -36,7 +36,28 @@
                 "EventId": "FR_orderRefusal",
                 "NewStateId": "orderMade",
                 "AdditionalData": {
-                  "Data": {
+                  "Data":
+                  {
+                    "orderRefusalCollection" : [
+                      {
+                        "value" : {
+                          "orderRefusalAfterText" : "testAfterText",
+                          "orderRefusal" : [
+                            "Hearing fixed for first available date"
+                          ],
+                          "orderRefusalOther" : "test1",
+                          "orderRefusalDocs" : {
+                            "document_url" : "http://doc1",
+                            "document_filename" : "doc1",
+                            "document_binary_url" : "http://doc1.binary"
+                          },
+                          "orderRefusalJudgeName" : "test3",
+                          "orderRefusalDate" : "2003-02-01",
+                          "orderRefusalAddComments" : "comment1",
+                          "orderRefusalJudge" : "District Judge"
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -54,6 +75,29 @@
           "taskData": {
             "template": "minimal-task-response-finrem.json",
             "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewRefusedOrder"
+                    }
+                  ],
+                  "type": "reviewRefusedOrder",
+                  "name": "Review Refused Order",
+                  "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)",
+                  "task_title" : "Review Refused Order",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "hearing_work",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
             }
           },
           "roleData": [

@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4604: When FR_issueApplication is run and the post event state is referredToJudge, then the reviewApplication task is created, claimed and completed",
+  "description": "DFR-4604: When FR_referToJudgeFromRespondToOrder is run and the post event state is referredToJudge, then the reviewApplication task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "FR_issueApplication",
+                "EventId": "FR_referToJudgeFromRespondToOrder",
                 "NewStateId": "referredToJudge"
               }
             }
@@ -68,7 +68,7 @@
                   "role_category" : "JUDICIAL",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
-                  "case_name" : "Financial Remedy",
+                  "case_name" : "Baggins vs Gollum",
                   "case_management_category" : "FR Consented",
                   "case_type_id" : "FinancialRemedyMVP2"
                 }

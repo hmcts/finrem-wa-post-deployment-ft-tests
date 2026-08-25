@@ -1,5 +1,5 @@
 {
-  "description": "DFR-5181: When FR_solCompleteUploadDocument is run, then the checkResponseReceived task is created, claimed and completed",
+  "description": "DFR-5181: When FR_solUploadDocumentv2 is run, then the checkResponseReceived task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -33,8 +33,8 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "FR_solCompleteUploadDocument",
-                "NewStateId": "infoReceived"
+                "EventId": "FR_solUploadDocumentv2",
+                "NewStateId": "awaitingInfo"
               }
             }
           ]

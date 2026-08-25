@@ -119,6 +119,9 @@ public class RoleAssignmentService {
         if (roleName.equals("ctsc")) {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
                                                            "SKILL:ABA2:CheckingApplications"));
+        } else if (roleName.equals("ctsc-team-leader")) {
+            authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
+                                                           "SKILL:ABA2:CheckingApplications"));
         }
 
         postRoleAssignment(

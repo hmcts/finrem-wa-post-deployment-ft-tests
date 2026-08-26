@@ -34,7 +34,7 @@
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
                 "EventId": "FR_solUploadDocumentv2",
-                "NewStateId": "awaitingInfo"
+                "NewStateId": "infoReceived"
               }
             }
           ]

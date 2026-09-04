@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed",
+  "description": "DFR-4605: When FR_uploadApprovedOrder is run and the case is in the consentOrderApproved state, and there is at least one pension documents on file, then the processApprovedOrder task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -16,6 +16,7 @@
         "caseData": {
           "template": "minimal-finrem.json",
           "replacements": {
+            "state": "consentOrderApproved"
           }
         }
       }
@@ -33,11 +34,24 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "attachScannedDocs",
-                "NewStateId": "FR_newPaperCase",
+                "EventId": "FR_uploadApprovedOrder",
+                "NewStateId": "consentOrderApproved",
                 "AdditionalData": {
-                  "Data": {
-                    "evidenceHandled": "No"
+                  "Data":
+                  {
+                    "pensionCollection": [
+                      {
+                        "id": "1",
+                        "value": {
+                          "typeOfDocument": "Form P1",
+                          "uploadedDocument": {
+                            "document_url": "http://file1",
+                            "document_filename": "file1",
+                            "document_binary_url": "http://file1.binary"
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -62,18 +76,18 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "processScannedDocuments"
+                      "value": "processApprovedOrder"
                     }
                   ],
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
-                  "task_title" : "Process Scanned Documents",
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)",
+                  "task_title" : "Process Approved Order",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
                   "case_name" : "Baggins vs Gollum",
                   "case_management_category" : "FR Consented",
-                  "work_type_id" : "evidence",
+                  "work_type_id" : "routine_work",
                   "role_category" : "CTSC",
                   "case_type_id" : "FinancialRemedyMVP2"
                 }
@@ -82,7 +96,7 @@
           },
           "roleData": [
             {
-              "key": "processScannedDocuments",
+              "key": "processApprovedOrder",
               "numberOfRolesAvailable": 2,
               "roles": [
                 {
@@ -97,7 +111,7 @@
                     "Claim"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:ProcessApprovedOrders"
                   ]
                 },
                 {
@@ -116,7 +130,7 @@
                     "Unassign"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:ProcessApprovedOrders"
                   ]
                 }
               ]
@@ -151,13 +165,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "processScannedDocuments"
+                      "value": "processApprovedOrder"
                     }
                   ],
                   "assignee": "{$ASSIGNEE_ID}",
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)"
                 }
               ]
             }

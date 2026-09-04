@@ -81,7 +81,7 @@
                   ],
                   "type": "processApprovedOrder",
                   "name": "Process Approved Order",
-                  "description": "[Amended Consent Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendedConsentOrder/FR_amendedConsentOrder1)",
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)",
                   "task_title" : "Process Approved Order",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
@@ -171,7 +171,7 @@
                   "assignee": "{$ASSIGNEE_ID}",
                   "type": "processApprovedOrder",
                   "name": "Process Approved Order",
-                  "description": "[Amended Consent Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendedConsentOrder/FR_amendedConsentOrder1)"
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)"
                 }
               ]
             }

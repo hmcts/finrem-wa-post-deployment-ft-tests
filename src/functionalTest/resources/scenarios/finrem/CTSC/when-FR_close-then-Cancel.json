@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed",
+  "description": "DFR-4600: When FR_close is run, then any tasks on the case are cancelled",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -122,56 +122,26 @@
     },
     {
       "request": {
-        "type": "CLAIM",
         "credentials": {
-          "key": "CTSC-Administrator",
-          "granularPermission": true
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_close",
+                "NewStateId": "close"
+              }
+            }
+          ]
         }
       },
       "expectations": [
         {
           "credentials": {
             "key": "ctsc-team-leader",
-            "granularPermission": true
-          },
-          "status": 200,
-          "numberOfTasksAvailable": 1,
-          "taskData": {
-            "template": "minimal-task-response-finrem.json",
-            "replacements": {
-              "tasks": [
-                {
-                  "task_state": "assigned",
-                  "task_system": "SELF",
-                  "test_meta_data": [
-                    {
-                      "key": "role_data_reference",
-                      "value": "processScannedDocuments"
-                    }
-                  ],
-                  "assignee": "{$ASSIGNEE_ID}",
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "request": {
-        "type": "COMPLETE",
-        "credentials": {
-          "key": "ctsc-team-leader",
-          "granularPermission": true
-        }
-      },
-      "expectations": [
-        {
-          "credentials": {
-            "key": "CTSC-Administrator",
             "granularPermission": true
           },
           "status": 200,

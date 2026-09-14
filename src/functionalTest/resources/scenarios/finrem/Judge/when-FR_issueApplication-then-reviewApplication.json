@@ -1,0 +1,180 @@
+{
+  "description": "DFR-4604: When FR_issueApplication is run and the post event state is referredToJudge, then the reviewApplication task is created, claimed and completed",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_issueApplication",
+                "NewStateId": "referredToJudge"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewApplication"
+                    }
+                  ],
+                  "type": "reviewApplication",
+                  "name": "Review Application",
+                  "description": "[Approve Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_approveApplication/FR_approveApplication1)<br>[Upload Approved Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_uploadApprovedOrder/FR_uploadApprovedOrder1)<br>[Application Not Approved](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_orderRefusal/FR_orderRefusal1)",
+                  "task_title": "Review Application",
+                  "work_type_id": "decision_making_work",
+                  "role_category" : "JUDICIAL",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Financial Remedy",
+                  "case_management_category" : "FR Consented",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "reviewApplication",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [
+                    "Read",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim"
+                  ],
+                  "authorisations": [
+                    "410"
+                  ]
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "410"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "CLAIM",
+        "credentials": {
+          "key": "judge",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "assigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewApplication"
+                    }
+                  ],
+                  "assignee": "{$ASSIGNEE_ID}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "COMPLETE",
+        "credentials": {
+          "key": "judge",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 0
+        }
+      ]
+    }
+  ]
+}

@@ -65,7 +65,7 @@
                   ],
                   "type": "reviewOrderResponse",
                   "name": "Review Order Response",
-                  "description": "[Assign to Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_assignToJudgeConsent/FR_assignToJudgeConsent1)",
+                  "description": "[Assign to Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_referToJudgeFromRespondToOrder/FR_referToJudgeFromRespondToOrder1)",
                   "task_title" : "Review Order Response",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
@@ -155,7 +155,7 @@
                   "assignee": "{$ASSIGNEE_ID}",
                   "type": "reviewOrderResponse",
                   "name": "Review Order Response",
-                  "description": "[Assign to Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_assignToJudgeConsent/FR_assignToJudgeConsent1)"
+                  "description": "[Assign to Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_referToJudgeFromRespondToOrder/FR_referToJudgeFromRespondToOrder1)"
                 }
               ]
             }

@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed.",
+  "description": "DFR-4603: When FR_paymenetMade is run then the checkAndIssueApplication task is created.",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -33,12 +33,9 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "attachScannedDocs",
-                "NewStateId": "FR_newPaperCase",
+                "EventId": "FR_applicationPaymentSubmission",
+                "NewStateId": "applicationSubmitted",
                 "AdditionalData": {
-                  "Data": {
-                    "evidenceHandled": "No"
-                  }
                 }
               }
             }
@@ -48,7 +45,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "ctsc-team-leader"
+            "key": "CTSC-Administrator"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -62,18 +59,18 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "processScannedDocuments"
+                      "value": "checkAndIssueApplication"
                     }
                   ],
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
-                  "task_title" : "Process Scanned Documents",
+                  "type": "checkAndIssueApplication",
+                  "name": "Check and Issue Application",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
+                  "task_title" : "Check and Issue Application",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
                   "case_name" : "Baggins vs Gollum",
                   "case_management_category" : "FR Consented",
-                  "work_type_id" : "evidence",
+                  "work_type_id" : "applications",
                   "role_category" : "CTSC",
                   "case_type_id" : "FinancialRemedyMVP2"
                 }
@@ -82,7 +79,7 @@
           },
           "roleData": [
             {
-              "key": "processScannedDocuments",
+              "key": "checkAndIssueApplication",
               "numberOfRolesAvailable": 2,
               "roles": [
                 {
@@ -97,7 +94,7 @@
                     "Claim"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:CheckingApplications"
                   ]
                 },
                 {
@@ -116,71 +113,12 @@
                     "Unassign"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:CheckingApplications"
                   ]
                 }
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "request": {
-        "type": "CLAIM",
-        "credentials": {
-          "key": "CTSC-Administrator",
-          "granularPermission": true
-        }
-      },
-      "expectations": [
-        {
-          "credentials": {
-            "key": "ctsc-team-leader",
-            "granularPermission": true
-          },
-          "status": 200,
-          "numberOfTasksAvailable": 1,
-          "taskData": {
-            "template": "minimal-task-response-finrem.json",
-            "replacements": {
-              "tasks": [
-                {
-                  "task_state": "assigned",
-                  "task_system": "SELF",
-                  "test_meta_data": [
-                    {
-                      "key": "role_data_reference",
-                      "value": "processScannedDocuments"
-                    }
-                  ],
-                  "assignee": "{$ASSIGNEE_ID}",
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "request": {
-        "type": "COMPLETE",
-        "credentials": {
-          "key": "ctsc-team-leader",
-          "granularPermission": true
-        }
-      },
-      "expectations": [
-        {
-          "credentials": {
-            "key": "CTSC-Administrator",
-            "granularPermission": true
-          },
-          "status": 200,
-          "numberOfTasksAvailable": 0
         }
       ]
     }

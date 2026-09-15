@@ -118,7 +118,8 @@ public class RoleAssignmentService {
         String authorizations = JsonUtil.toJsonString(List.of());
         if (roleName.equals("ctsc")) {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
-                                                           "SKILL:ABA2:CheckRefusedOrder"));
+                                                           "SKILL:ABA2:CheckRefusedOrder",
+                                                           "SKILL:ABA2:CheckingApplications"));
         }
 
         postRoleAssignment(

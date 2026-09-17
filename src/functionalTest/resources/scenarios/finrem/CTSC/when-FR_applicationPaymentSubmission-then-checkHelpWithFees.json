@@ -1,0 +1,188 @@
+{
+  "description": "DFR-4602: When FR_applicationPaymentSubmission is run, then the checkHelpWithFees task is created, claimed and completed",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_applicationPaymentSubmission",
+                "NewStateId": "awaitingHWFDecision",
+                "AdditionalData": {
+                  "Data": {
+                    "helpWithFeesQuestion": "Yes"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkHelpWithFees"
+                    }
+                  ],
+                  "type": "checkHelpWithFees",
+                  "name": "Check Help With Fees",
+                  "description": "[HWF Accepted & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_HWFAcceptedAndIssue/FR_HWFAcceptedAndIssue1)<br>[Fee Account Debited & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_feeAccountDebitedAndIssue/FR_feeAccountDebitedAndIssue1)<br>[Awaiting Payment Response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingPaymentResponseFromHWF/FR_awaitingPaymentResponseFromHWF1)",
+                  "task_title" : "Check Help With Fees",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "applications",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "checkHelpWithFees",
+              "numberOfRolesAvailable": 2,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Execute",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingHWF"
+                  ]
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": [
+                    "SKILL:ABA2:CheckingHWF"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "CLAIM",
+        "credentials": {
+          "key": "CTSC-Administrator",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "assigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkHelpWithFees"
+                    }
+                  ],
+                  "assignee": "{$ASSIGNEE_ID}",
+                  "type": "checkHelpWithFees",
+                  "name": "Check Help With Fees",
+                  "description": "[HWF Accepted & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_HWFAcceptedAndIssue/FR_HWFAcceptedAndIssue1)<br>[Fee Account Debited & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_feeAccountDebitedAndIssue/FR_feeAccountDebitedAndIssue1)<br>[Awaiting Payment Response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingPaymentResponseFromHWF/FR_awaitingPaymentResponseFromHWF1)"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "request": {
+        "type": "COMPLETE",
+        "credentials": {
+          "key": "ctsc-team-leader",
+          "granularPermission": true
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator",
+            "granularPermission": true
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 0
+        }
+      ]
+    }
+  ]
+}

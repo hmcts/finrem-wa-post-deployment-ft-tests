@@ -1,5 +1,5 @@
 {
-  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed.",
+  "description": "DFR-5181: When FR_solUploadDocumentv2 is run, then the checkResponseReceived task is created, claimed and completed",
   "enabled": true,
   "jurisdiction": "DIVORCE",
   "caseType": "FinancialRemedyMVP2",
@@ -33,13 +33,8 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
-                "EventId": "attachScannedDocs",
-                "NewStateId": "FR_newPaperCase",
-                "AdditionalData": {
-                  "Data": {
-                    "evidenceHandled": "No"
-                  }
-                }
+                "EventId": "FR_solUploadDocumentv2",
+                "NewStateId": "infoReceived"
               }
             }
           ]
@@ -62,18 +57,18 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "processScannedDocuments"
+                      "value": "checkResponseReceived"
                     }
                   ],
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
-                  "task_title" : "Process Scanned Documents",
+                  "type": "checkResponseReceived",
+                  "name": "Check Response Received",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplicationFromInfoReceived/FR_issueApplicationFromInfoReceived1)<br>[Awaiting Information](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingInfo/FR_awaitingInfo1)<br>[Create General Email](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalEmail/FR_generalEmail1)<br>[Create General Letter](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalLetter/FR_generalLetter1)<br>[General Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalOrderFromInfoReceived/FR_generalOrderFromInfoReceived1)<br>[List for hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_close/FR_close1)",
+                  "task_title" : "Check Response Received",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
                   "case_name" : "Baggins vs Gollum",
                   "case_management_category" : "FR Consented",
-                  "work_type_id" : "evidence",
+                  "work_type_id" : "routine_work",
                   "role_category" : "CTSC",
                   "case_type_id" : "FinancialRemedyMVP2"
                 }
@@ -82,7 +77,7 @@
           },
           "roleData": [
             {
-              "key": "processScannedDocuments",
+              "key": "checkResponseReceived",
               "numberOfRolesAvailable": 2,
               "roles": [
                 {
@@ -97,7 +92,7 @@
                     "Claim"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:CheckingApplications"
                   ]
                 },
                 {
@@ -116,7 +111,7 @@
                     "Unassign"
                   ],
                   "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
+                    "SKILL:ABA2:CheckingApplications"
                   ]
                 }
               ]
@@ -151,13 +146,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "processScannedDocuments"
+                      "value": "checkResponseReceived"
                     }
                   ],
                   "assignee": "{$ASSIGNEE_ID}",
-                  "type": "processScannedDocuments",
-                  "name": "Process Scanned Documents",
-                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)"
+                  "type": "checkResponseReceived",
+                  "name": "Check Response Received",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplicationFromInfoReceived/FR_issueApplicationFromInfoReceived1)<br>[Awaiting Information](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingInfo/FR_awaitingInfo1)<br>[Create General Email](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalEmail/FR_generalEmail1)<br>[Create General Letter](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalLetter/FR_generalLetter1)<br>[General Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalOrderFromInfoReceived/FR_generalOrderFromInfoReceived1)<br>[List for hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_close/FR_close1)"
                 }
               ]
             }

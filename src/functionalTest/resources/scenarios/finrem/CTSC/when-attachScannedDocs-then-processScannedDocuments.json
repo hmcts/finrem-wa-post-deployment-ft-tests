@@ -34,7 +34,12 @@
               "template": "minimal-ccd-event-message-finrem.json",
               "replacements": {
                 "EventId": "attachScannedDocs",
-                "NewStateId": "FR_newPaperCase"
+                "NewStateId": "FR_newPaperCase",
+                "AdditionalData": {
+                  "Data": {
+                    "evidenceHandled": "No"
+                  }
+                }
               }
             }
           ]

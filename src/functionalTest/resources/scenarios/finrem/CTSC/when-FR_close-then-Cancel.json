@@ -36,6 +36,16 @@
                 "EventId": "attachScannedDocs",
                 "NewStateId": "FR_newPaperCase"
               }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_applicationPaymentSubmission",
+                "NewStateId": "applicationSubmitted",
+                "AdditionalData": {
+                }
+              }
             }
           ]
         }
@@ -46,11 +56,32 @@
             "key": "ctsc-team-leader"
           },
           "status": 200,
-          "numberOfTasksAvailable": 1,
+          "numberOfTasksAvailable": 2,
           "taskData": {
             "template": "minimal-task-response-finrem.json",
             "replacements": {
               "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkAndIssueApplication"
+                    }
+                  ],
+                  "type": "checkAndIssueApplication",
+                  "name": "Check and Issue Application",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
+                  "task_title" : "Check and Issue Application",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "applications",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
                 {
                   "task_state": "unassigned",
                   "task_system": "SELF",
@@ -74,49 +105,7 @@
                 }
               ]
             }
-          },
-          "roleData": [
-            {
-              "key": "processScannedDocuments",
-              "numberOfRolesAvailable": 2,
-              "roles": [
-                {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Execute",
-                    "CompleteOwn",
-                    "CancelOwn",
-                    "Claim"
-                  ],
-                  "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
-                  ]
-                },
-                {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc-team-leader",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Execute",
-                    "Cancel",
-                    "Complete",
-                    "Claim",
-                    "Unclaim",
-                    "Assign",
-                    "Unassign"
-                  ],
-                  "authorisations": [
-                    "SKILL:ABA2:ManageScannedDocuments"
-                  ]
-                }
-              ]
-            }
-          ]
+          }
         }
       ]
     },

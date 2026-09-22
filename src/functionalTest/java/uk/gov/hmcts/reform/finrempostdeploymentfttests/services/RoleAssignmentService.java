@@ -116,10 +116,12 @@ public class RoleAssignmentService {
     public void setupRoleAssignment(Headers headers, UserInfo userInfo, String roleName) {
 
         String authorizations = JsonUtil.toJsonString(List.of());
-        if (roleName.equals("ctsc")) {
+
+        if (roleName.equals("ctsc") || roleName.equals("ctsc-team-leader")) {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
-                                                           "SKILL:ABA2:CheckRefusedOrder",
-                                                           "SKILL:ABA2:CheckingApplications"));
+                                                           "SKILL:ABA2:CheckingApplications",
+                                                           "SKILL:ABA2:ProcessApprovedOrders",
+                                                           "SKILL:ABA2:CheckRefusedOrder"));
         }
 
         postRoleAssignment(

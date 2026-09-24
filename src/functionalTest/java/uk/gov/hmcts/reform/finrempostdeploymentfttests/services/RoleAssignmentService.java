@@ -120,6 +120,7 @@ public class RoleAssignmentService {
         if (roleName.equals("ctsc") || roleName.equals("ctsc-team-leader")) {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
                                                            "SKILL:ABA2:CheckingApplications",
+                                                           "SKILL:ABA2:ProcessApprovedOrders",
                                                            "SKILL:ABA2:CheckOrderResponse"));
         }
 

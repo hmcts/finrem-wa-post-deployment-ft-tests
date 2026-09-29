@@ -37,7 +37,7 @@
                 "NewStateId": "FR_newPaperCase",
                 "AdditionalData": {
                   "Data": {
-                    "evidenceHandled": "No"
+                    "evidenceHandled": false
                   }
                 }
               }

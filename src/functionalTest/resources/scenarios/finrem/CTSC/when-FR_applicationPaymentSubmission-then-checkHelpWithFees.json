@@ -37,7 +37,7 @@
                 "NewStateId": "awaitingHWFDecision",
                 "AdditionalData": {
                   "Data": {
-                    "helpWithFeesQuestion": "Yes"
+                    "helpWithFeesQuestion": true
                   }
                 }
               }

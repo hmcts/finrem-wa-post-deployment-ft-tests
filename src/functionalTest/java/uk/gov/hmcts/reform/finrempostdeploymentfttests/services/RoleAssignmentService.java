@@ -121,6 +121,7 @@ public class RoleAssignmentService {
             authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
                                                            "SKILL:ABA2:CheckingApplications",
                                                            "SKILL:ABA2:ProcessApprovedOrders",
+                                                           "SKILL:ABA2:CheckOrderResponse",
                                                            "SKILL:ABA2:CheckRefusedOrder"));
         }
 

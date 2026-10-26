@@ -102,5 +102,45 @@
     "PreviousOrganisations": [],
     "OrgPolicyCaseAssignedRole": "[RESPSOLICITOR]"
   },
-  "solicitorAgreeToReceiveEmails": "Yes"
+  "solicitorAgreeToReceiveEmails": "Yes",
+  "listForHearings": [
+    {
+      "id": "2486b8ff-fe62-470b-9638-ccc215714c29",
+      "value": {
+        "regionList": "midlands",
+        "hearingDate": "2026-10-21",
+        "hearingTime": "1",
+        "hearingType": "First Directions Appointment (FDA)",
+        "hearingNotice": {
+          "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/86e3bd1d-8066-4791-a466-9f0f81ed2039",
+          "document_filename": "HearingNotice.pdf",
+          "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/86e3bd1d-8066-4791-a466-9f0f81ed2039/binary"
+        },
+        "midlandsFRCList": "nottingham",
+        "hearingTimeEstimate": "1",
+        "nottinghamCourtList": "FR_s_NottinghamList_1",
+        "promptForAnyDocument": "No",
+        "additionalInformationAboutHearing": "past"
+      }
+    },
+    {
+      "id": "fe800be6-c15e-47b3-ac3a-b44d0944888e",
+      "value": {
+        "regionList": "midlands",
+        "hearingDate": "2027-10-21",
+        "hearingTime": "1",
+        "hearingType": "First Directions Appointment (FDA)",
+        "hearingNotice": {
+          "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315",
+          "document_filename": "HearingNotice.pdf",
+          "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315/binary"
+        },
+        "midlandsFRCList": "nottingham",
+        "hearingTimeEstimate": "1",
+        "nottinghamCourtList": "FR_s_NottinghamList_1",
+        "promptForAnyDocument": "No",
+        "additionalInformationAboutHearing": "future"
+      }
+    }
+  ]
 }

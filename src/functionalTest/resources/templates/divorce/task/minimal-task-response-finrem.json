@@ -1,6 +1,7 @@
 {
   "tasks": [
     {
+      "major_priority" : 5000
     }
   ]
 }

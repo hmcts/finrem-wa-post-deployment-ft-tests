@@ -1,0 +1,147 @@
+{
+  "description": "DFR-4600: When attachScannedDocs is run and the additional data evidenceHandled is either No or not present, then the processScannedDocuments task is created, claimed and completed.",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+            "listForHearings": [
+              {
+                "id": "2486b8ff-fe62-470b-9638-ccc215714c29",
+                "value": {
+                  "regionList": "midlands",
+                  "hearingDate": "2026-10-21",
+                  "hearingTime": "1",
+                  "hearingType": "First Directions Appointment (FDA)",
+                  "hearingNotice": {
+                    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/86e3bd1d-8066-4791-a466-9f0f81ed2039",
+                    "document_filename": "HearingNotice.pdf",
+                    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/86e3bd1d-8066-4791-a466-9f0f81ed2039/binary"
+                  },
+                  "midlandsFRCList": "nottingham",
+                  "hearingTimeEstimate": "1",
+                  "nottinghamCourtList": "FR_s_NottinghamList_1",
+                  "promptForAnyDocument": "No",
+                  "additionalInformationAboutHearing": "past"
+                }
+              },
+              {
+                "id": "fe800be6-c15e-47b3-ac3a-b44d0944888e",
+                "value": {
+                  "regionList": "midlands",
+                  "hearingDate": "2026-10-22",
+                  "hearingTime": "1",
+                  "hearingType": "First Directions Appointment (FDA)",
+                  "hearingNotice": {
+                    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315",
+                    "document_filename": "HearingNotice.pdf",
+                    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315/binary"
+                  },
+                  "midlandsFRCList": "nottingham",
+                  "hearingTimeEstimate": "1",
+                  "nottinghamCourtList": "FR_s_NottinghamList_1",
+                  "promptForAnyDocument": "No",
+                  "additionalInformationAboutHearing": "today"
+                }
+              },
+              {
+                "id": "fe800be6-c15e-47b3-ac3a-b44d0944888e",
+                "value": {
+                  "regionList": "midlands",
+                  "hearingDate": "2027-10-21",
+                  "hearingTime": "1",
+                  "hearingType": "First Directions Appointment (FDA)",
+                  "hearingNotice": {
+                    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315",
+                    "document_filename": "HearingNotice.pdf",
+                    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/ce57945f-03df-4254-ad8a-676599195315/binary"
+                  },
+                  "midlandsFRCList": "nottingham",
+                  "hearingTimeEstimate": "1",
+                  "nottinghamCourtList": "FR_s_NottinghamList_1",
+                  "promptForAnyDocument": "No",
+                  "additionalInformationAboutHearing": "future"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "attachScannedDocs",
+                "NewStateId": "FR_newPaperCase",
+                "AdditionalData": {
+                  "Data": {
+                    "evidenceHandled": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processScannedDocuments"
+                    }
+                  ],
+                  "type": "processScannedDocuments",
+                  "name": "Process Scanned Documents",
+                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
+                  "task_title" : "Process Scanned Documents",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "evidence",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2",
+                  "major_priority" : 2000
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,11 +1,7 @@
 {
   "isAdmin": "No",
   "state": "newPaperCase",
-  "d81Joint": {
-    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
-    "document_filename": "test.pdf",
-    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
-  },
+  "d81Joint": "{$NOTICE_OF_DECISION_DOCUMENT}",
   "HWFNumber": "HWF1234",
   "caseFlags": {
     "details": [],
@@ -15,11 +11,7 @@
   "regionList": "midlands",
   "amountToPay": "6200",
   "d81Question": "Yes",
-  "consentOrder": {
-    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
-    "document_filename": "test.pdf",
-    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
-  },
+  "consentOrder": "{$NOTICE_OF_DECISION_DOCUMENT}",
   "orderSummary": {
     "Fees": [
       {
@@ -80,11 +72,7 @@
     "AddressLine3": ""
   },
   "appRespondentLName": "Gollum",
-  "latestConsentOrder": {
-    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
-    "document_filename": "test.pdf",
-    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
-  },
+  "latestConsentOrder": "{$NOTICE_OF_DECISION_DOCUMENT}",
   "solicitorReference": "Y707HZM",
   "appRespondentFMName": "Smeagol",
   "divorceStageReached": "Decree Nisi",
@@ -95,11 +83,7 @@
     "Maintenance Pending Suit"
   ],
   "divorceDecreeNisiDate": "2024-01-01",
-  "divorceUploadEvidence1": {
-    "document_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867",
-    "document_filename": "test.pdf",
-    "document_binary_url": "http://dm-store-aat.service.core-compute-aat.internal/documents/14159821-7a8a-41d6-b46d-91dbb0339867/binary"
-  },
+  "divorceUploadEvidence1": "{$NOTICE_OF_DECISION_DOCUMENT}",
   "ApplicantOrganisationPolicy": {
     "Organisation": {
       "OrganisationID": "Y707HZM",

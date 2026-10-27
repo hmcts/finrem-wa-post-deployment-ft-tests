@@ -124,14 +124,14 @@
       "request": {
         "type": "CLAIM",
         "credentials": {
-          "key": "judge",
+          "key": "senior-judge",
           "granularPermission": true
         }
       },
       "expectations": [
         {
           "credentials": {
-            "key": "judge",
+            "key": "senior-judge",
             "granularPermission": true
           },
           "status": 200,
@@ -161,14 +161,14 @@
       "request": {
         "type": "COMPLETE",
         "credentials": {
-          "key": "judge",
+          "key": "senior-judge",
           "granularPermission": true
         }
       },
       "expectations": [
         {
           "credentials": {
-            "key": "judge",
+            "key": "senior-judge",
             "granularPermission": true
           },
           "status": 200,

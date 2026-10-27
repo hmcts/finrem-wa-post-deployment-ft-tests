@@ -117,8 +117,12 @@ public class RoleAssignmentService {
     public void setupRoleAssignment(Headers headers, UserInfo userInfo, String roleName) {
 
         String authorizations = JsonUtil.toJsonString(List.of());
-        if (roleName.equals("ctsc")) {
-            authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments"));
+
+        if (roleName.equals("ctsc") || roleName.equals("ctsc-team-leader")) {
+            authorizations = JsonUtil.toJsonString(List.of("SKILL:ABA2:ManageScannedDocuments",
+                                                           "SKILL:ABA2:CheckingApplications",
+                                                           "SKILL:ABA2:ProcessApprovedOrders",
+                                                           "SKILL:ABA2:CheckOrderResponse"));
         } else if (roleName.equals("judge") || roleName.equals("leadership-judge")) {
             authorizations = JsonUtil.toJsonString(List.of("410"));
         }

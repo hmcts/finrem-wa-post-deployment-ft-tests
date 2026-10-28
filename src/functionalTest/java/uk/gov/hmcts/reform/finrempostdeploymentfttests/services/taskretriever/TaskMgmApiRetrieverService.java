@@ -115,12 +115,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         return false;
                     }
 
-                    Map<String, Object> actualResponse = MapSerializer.deserialize(
-                        MapSerializer.sortCollectionElement(
-                            searchByCaseIdResponseBody,
-                            "tasks",
-                            taskTitleComparator()
-                        ));
+                    Map<String, Object> actualResponse = MapSerializer.deserialize(searchByCaseIdResponseBody);
                     Map<String, Object> expectedResponse = MapSerializer.deserialize(expectedResponseBody);
 
                     verifiers.forEach(verifier ->

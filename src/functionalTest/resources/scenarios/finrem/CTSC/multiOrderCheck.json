@@ -1,0 +1,271 @@
+{
+  "description": "Correct order - broken.",
+  "enabled": true,
+  "jurisdiction": "DIVORCE",
+  "caseType": "FinancialRemedyMVP2",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "FR_newPaperCase",
+        "caseData": {
+          "template": "minimal-finrem.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "CTSC-Administrator"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "attachScannedDocs",
+                "NewStateId": "FR_newPaperCase",
+                "AdditionalData": {
+                  "Data": {
+                    "evidenceHandled": false
+                  }
+                }
+              }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_applicationPaymentSubmission",
+                "NewStateId": "applicationSubmitted",
+                "AdditionalData": {
+                }
+              }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_approveApplication",
+                "NewStateId": "consentOrderApproved",
+                "AdditionalData": {
+                  "Data": {
+                    "pensionCollection": [
+                      {
+                        "id": "1",
+                        "value": {
+                          "typeOfDocument": "Form P1",
+                          "uploadedDocument": {
+                            "document_url": "http://file1",
+                            "document_filename": "file1",
+                            "document_binary_url": "http://file1.binary"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_respondToOrder",
+                "NewStateId": "responseReceived",
+                "AdditionalData": {
+                }
+              }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_solUploadDocumentv2",
+                "NewStateId": "infoReceived"
+              }
+            },
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message-finrem.json",
+              "replacements": {
+                "EventId": "FR_uploadApprovedOrder",
+                "NewStateId": "consentOrderApproved",
+                "AdditionalData": {
+                  "Data":
+                  {
+                    "pensionCollection": [
+                      {
+                        "id": "1",
+                        "value": {
+                          "typeOfDocument": "Form P1",
+                          "uploadedDocument": {
+                            "document_url": "http://file1",
+                            "document_filename": "file1",
+                            "document_binary_url": "http://file1.binary"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "ctsc-team-leader"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 6,
+          "taskData": {
+            "template": "minimal-task-response-finrem.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processScannedDocuments"
+                    }
+                  ],
+                  "type": "processScannedDocuments",
+                  "name": "Process Scanned Documents",
+                  "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
+                  "task_title" : "Process Scanned Documents",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "evidence",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkAndIssueApplication"
+                    }
+                  ],
+                  "type": "checkAndIssueApplication",
+                  "name": "Check and Issue Application",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
+                  "task_title" : "Check and Issue Application",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "applications",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processApprovedOrder"
+                    }
+                  ],
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)",
+                  "task_title" : "Process Approved Order",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "routine_work",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewOrderResponse"
+                    }
+                  ],
+                  "type": "reviewOrderResponse",
+                  "name": "Review Order Response",
+                  "description": "[Assign to Judge](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_referToJudgeFromRespondToOrder/FR_referToJudgeFromRespondToOrder1)",
+                  "task_title" : "Review Order Response",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "review_case",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "checkResponseReceived"
+                    }
+                  ],
+                  "type": "checkResponseReceived",
+                  "name": "Check Response Received",
+                  "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplicationFromInfoReceived/FR_issueApplicationFromInfoReceived1)<br>[Awaiting Information](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingInfo/FR_awaitingInfo1)<br>[Create General Email](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalEmail/FR_generalEmail1)<br>[Create General Letter](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalLetter/FR_generalLetter1)<br>[General Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalOrderFromInfoReceived/FR_generalOrderFromInfoReceived1)<br>[List for hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_close/FR_close1)",
+                  "task_title" : "Check Response Received",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "routine_work",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                },
+                {
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "processApprovedOrder"
+                    }
+                  ],
+                  "type": "processApprovedOrder",
+                  "name": "Process Approved Order",
+                  "description": "[Amend Final Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_amendFinalOrder/FR_amendFinalOrder1)",
+                  "task_title" : "Process Approved Order",
+                  "jurisdiction" : "DIVORCE",
+                  "case_category" : "FR Consented",
+                  "case_name" : "Baggins vs Gollum",
+                  "case_management_category" : "FR Consented",
+                  "work_type_id" : "routine_work",
+                  "role_category" : "CTSC",
+                  "case_type_id" : "FinancialRemedyMVP2"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -36,27 +36,6 @@ public final class MapSerializer {
         );
     }
 
-    public static String sortCollectionElement(String source, String elementNameToSort, Comparator<JsonNode> comparator)
-        throws IOException {
-        JsonNode node = MAPPER.readTree(source);
-        ObjectNode objectNode = node.deepCopy();
-
-        if (node.get(elementNameToSort) instanceof ArrayNode) {
-            ArrayNode list = (ArrayNode) node.get(elementNameToSort);
-
-            List<JsonNode> sortList = new ArrayList<>();
-            list.elements().forEachRemaining(sortList::add);
-            Collections.sort(sortList, comparator);
-
-            ArrayNode array = MAPPER.createArrayNode();
-            sortList.forEach(array::add);
-            objectNode.set(elementNameToSort, array);
-
-            return MAPPER.writeValueAsString(objectNode);
-        }
-        return source;
-    }
-
     public static String serialize(Map<String, Object> map) throws IOException {
 
         return MAPPER.writeValueAsString(map);

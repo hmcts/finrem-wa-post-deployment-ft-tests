@@ -244,14 +244,6 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         }
     }
 
-    private Comparator<JsonNode> taskTitleComparator() {
-        return (j1, j2) -> {
-            String title1 = j1.findValue("task_title").asText();
-            String title2 = j2.findValue("task_title").asText();
-            return title1.compareTo(title2);
-        };
-    }
-
     private String buildTaskExpectationResponseBody(Map<String, Object> clauseValues,
                                                     Map<String, String> taskTemplatesByFilename,
                                                     Map<String, String> additionalValues) throws IOException {

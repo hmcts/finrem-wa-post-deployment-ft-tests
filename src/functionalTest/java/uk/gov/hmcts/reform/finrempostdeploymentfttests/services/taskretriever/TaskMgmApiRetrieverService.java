@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.finrempostdeploymentfttests.services.taskretriever;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.http.Headers;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,6 @@ import uk.gov.hmcts.reform.finrempostdeploymentfttests.verifiers.Verifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;

@@ -160,7 +160,6 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("uk.gov.hmcts.reform.finrempostdeploymentfttests.ScenarioSources#judgeScenarios")
-    @Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Judge scenarios");
         runScenarioBySource(scenarioSource, retryCount);

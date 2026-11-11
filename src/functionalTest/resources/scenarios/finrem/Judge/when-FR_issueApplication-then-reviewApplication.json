@@ -8,7 +8,7 @@
   },
   "required": {
     "credentials": {
-      "key": "systemupdate"
+      "key": "FinremSystemUser"
     },
     "ccd": [
       {

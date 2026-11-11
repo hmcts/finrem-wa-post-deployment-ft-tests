@@ -146,7 +146,7 @@ public class RoleAssignmentService {
             "PUBLIC",
             "staff-organisational-role-mapping",
             userInfo.getUid(),
-            true,
+            false,
             false,
             null,
             "2020-01-01T00:00:00Z",

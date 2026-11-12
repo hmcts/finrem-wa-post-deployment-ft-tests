@@ -62,7 +62,7 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    def FINREM_WA_PR = "3791"
+    def FINREM_WA_PR = "3792"
 
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
     env.CCD_URL="https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"

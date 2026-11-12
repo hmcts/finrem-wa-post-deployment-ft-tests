@@ -101,7 +101,6 @@ FT_ENV=<demo or aat> ./gradlew run-ft-preview
 ```bash
 ./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=finrem-10005-review-fta-time-extension-request
 ```
-
 #### Or multiple scenarios:
 ```bash
 ./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=finrem-10005

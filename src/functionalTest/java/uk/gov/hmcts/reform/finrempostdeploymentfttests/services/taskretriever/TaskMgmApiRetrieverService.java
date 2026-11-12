@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.finrempostdeploymentfttests.services.taskretriever;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.http.Headers;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,6 @@ import uk.gov.hmcts.reform.finrempostdeploymentfttests.verifiers.Verifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -115,12 +113,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         return false;
                     }
 
-                    Map<String, Object> actualResponse = MapSerializer.deserialize(
-                        MapSerializer.sortCollectionElement(
-                            searchByCaseIdResponseBody,
-                            "tasks",
-                            taskTitleComparator()
-                        ));
+                    Map<String, Object> actualResponse = MapSerializer.deserialize(searchByCaseIdResponseBody);
                     Map<String, Object> expectedResponse = MapSerializer.deserialize(expectedResponseBody);
 
                     verifiers.forEach(verifier ->
@@ -247,14 +240,6 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         if (!isTestPassed.get()) {
             Logger.say(LoggerMessage.SCENARIO_FAILED, scenario.getScenarioMapValues().get("description"));
         }
-    }
-
-    private Comparator<JsonNode> taskTitleComparator() {
-        return (j1, j2) -> {
-            String title1 = j1.findValue("task_title").asText();
-            String title2 = j2.findValue("task_title").asText();
-            return title1.compareTo(title2);
-        };
     }
 
     private String buildTaskExpectationResponseBody(Map<String, Object> clauseValues,

@@ -38,6 +38,7 @@ public class RoleAssignmentService {
     private Map<String,String> roleToCategoryMap = Map.of(
         "tribunal-caseworker", "CTSC",
         "judge", "JUDICIAL",
+        "leadership-judge", "JUDICIAL",
         "ctsc", "CTSC",
         "regional-centre-admin", "ADMIN"
     );
@@ -123,6 +124,8 @@ public class RoleAssignmentService {
                                                            "SKILL:ABA2:CheckingHWF",
                                                            "SKILL:ABA2:ProcessApprovedOrders",
                                                            "SKILL:ABA2:CheckOrderResponse"));
+        } else if (roleName.equals("judge") || roleName.equals("leadership-judge")) {
+            authorizations = JsonUtil.toJsonString(List.of("410"));
         }
 
         postRoleAssignment(

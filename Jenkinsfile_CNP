@@ -32,6 +32,14 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+def getFinremCCCDImage() {
+  def githubApi = new GithubAPI(this)
+  for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "use-ccd-pr-") ) {
+    return label.minus("use-ccd-")
+  }
+  return ""
+}
+
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
   def githubApi = new GithubAPI(this)
@@ -62,15 +70,15 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    def FINREM_WA_PR = "3792"
+    def FINREM_CCD_PR = getFinremCCCDImage()
 
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-    env.CCD_URL="https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
-    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
-    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
-    env.CAMUNDA_URL="https://camunda-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net/engine-rest"
-    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
-    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-finrem-ccd-definitions-pr-${FINREM_WA_PR}.preview.platform.hmcts.net"
+    env.CCD_URL="https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
+    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
+    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
+    env.CAMUNDA_URL="https://camunda-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net/engine-rest"
+    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
+    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
 
     def tests = githubApi.getLabelsbyPattern(env.BRANCH_NAME, "user-role")
     if (tests && tests.size() > 0) {

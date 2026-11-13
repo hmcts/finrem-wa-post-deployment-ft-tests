@@ -26,6 +26,10 @@ Tests effectively treat the WA Task Management backend as a black box where an e
 This will take care of all the required config and not consume significant resources on your machine.
 Refer to the Readme file here: https://github.com/hmcts/finrem-case-orchestration-service/blob/master/README.md
 
+## Running tests in Preview
+* Point to tests to running a CCD preview env using github label 'use-ccd-pr-'  eg: use-ccd-pr-3456
+* Build will not run unless github label is provided.
+
 ## When merging to master:
 * This is a non prod repo so it will not be deployed to production environments.
 * Please ensure all checks are run and code has been reviewed.

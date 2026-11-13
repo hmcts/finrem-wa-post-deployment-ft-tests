@@ -81,17 +81,19 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     @Override
-    public Headers getWaUserAuthorization(CredentialRequest request) throws IOException {
-        if ("WaSystemUser".equals(request.getCredentialsKey())) {
-            return getSystemUserAuthorization("WaSystemUser", "WA_SYSTEM_USERNAME", "WA_SYSTEM_PASSWORD");
-        } else if ("systemupdate".equals(request.getCredentialsKey())) {
-            return getSystemUserAuthorization("FinremSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
+    public Headers getWaUserAuthorization(CredentialRequest request) {
+        String credentialsKey = request.getCredentialsKey();
+        if (credentialsKey.equals("WaSystemUser")) {
+            return getWaSystemUserAuthorization();
+        } else if (credentialsKey.equals("FinremSystemUser")) {
+            generateRoleAssignments(System.getenv("SYSTEMUPDATE_USERNAME"), credentialsKey);
+            return getFinremSystemUserAuthorization();
         } else {
 
-            String userEmail = findOrGenerateUserAccount(request.getCredentialsKey(), request.isGranularPermission());
+            String userEmail = findOrGenerateUserAccount(credentialsKey, request.isGranularPermission());
 
             return new Headers(
-                getUserAuthorizationHeader(request.getCredentialsKey(), userEmail),
+                getUserAuthorizationHeader(credentialsKey, userEmail),
                 getServiceAuthorizationHeader()
             );
         }
@@ -191,14 +193,18 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
         log.info("Test account created successfully");
 
+        generateRoleAssignments(userEmail, credentialsKey);
+
+        return userEmail;
+    }
+
+    private void generateRoleAssignments(String userEmail, String credentialsKey) {
         List<String> roleAssignments = findRoleAssignmentRequirements(credentialsKey);
         log.info("Assigning role assignments {}", roleAssignments);
 
         for (String r : roleAssignments) {
             assignRoleAssignment(userEmail, credentialsKey, r);
         }
-
-        return userEmail;
     }
 
     @NotNull
@@ -219,7 +225,9 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         List<String> roleAssignments = new ArrayList<>();
         switch (credentialsKey) {
             case "superuser":
-            case "systemupdate":
+            case "FinremSystemUser":
+                roleAssignments.add("ctsc");
+                roleAssignments.add("ctsc-team-leader");
                 break;
             case "ctsc-team-leader":
                 roleAssignments.add("ctsc");
@@ -227,6 +235,10 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 break;
             case "judge":
                 roleAssignments.add("judge");
+                break;
+            case "senior-judge":
+                roleAssignments.add("judge");
+                roleAssignments.add("leadership-judge");
                 break;
             case "CTSC-Administrator":
                 roleAssignments.add("ctsc");
@@ -241,10 +253,15 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     private void assignRoleAssignment(String userEmail, String credentialsKey, String roleName) {
-        Headers authenticationHeaders = new Headers(
-            getUserAuthorizationHeader(credentialsKey, userEmail),
-            getServiceAuthorizationHeader()
-        );
+        Headers authenticationHeaders;
+        if (credentialsKey.equals("FinremSystemUser")) {
+            authenticationHeaders = getFinremSystemUserAuthorization();
+        } else {
+            authenticationHeaders = new Headers(
+                getUserAuthorizationHeader(credentialsKey, userEmail),
+                getServiceAuthorizationHeader()
+            );
+        }
         UserInfo userInfo = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
         roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo, roleName);
     }

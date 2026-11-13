@@ -37,7 +37,8 @@ def getFinremCCCDImage() {
   for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "use-ccd-pr-") ) {
     return label.minus("use-ccd-")
   }
-  error("No label matching 'use-ccd-pr-' found for branch ${env.BRANCH_NAME}")
+  echo "No label matching 'use-ccd-pr-' found for  " + { env.ENABLED_USER_ROLES }
+  error("Build stopped: Missing required 'use-ccd-pr-' label.")
 }
 
 //Run Jenkins_CNP with nightly pipeline

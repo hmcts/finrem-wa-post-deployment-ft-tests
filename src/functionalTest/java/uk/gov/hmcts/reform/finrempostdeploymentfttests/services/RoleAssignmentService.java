@@ -123,7 +123,8 @@ public class RoleAssignmentService {
                                                            "SKILL:ABA2:CheckingApplications",
                                                            "SKILL:ABA2:CheckingHWF",
                                                            "SKILL:ABA2:ProcessApprovedOrders",
-                                                           "SKILL:ABA2:CheckOrderResponse"));
+                                                           "SKILL:ABA2:CheckOrderResponse",
+                                                           "SKILL:ABA2:CheckRefusedOrder"));
         } else if (roleName.equals("judge") || roleName.equals("leadership-judge")) {
             authorizations = JsonUtil.toJsonString(List.of("410"));
         }

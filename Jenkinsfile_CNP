@@ -35,7 +35,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 def getFinremCCCDImage() {
   def githubApi = new GithubAPI(this)
   for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "use-ccd-pr-") ) {
-    echo "Tests will run against CCD PR -   " + label.minus("use-ccd-pr-")
+    echo "Tests will run against CCD PR - " + label.minus("use-ccd-pr-")
     return label.minus("use-ccd-pr-")
   }
   error("Build stopped: Missing required 'use-ccd-pr-' label.")

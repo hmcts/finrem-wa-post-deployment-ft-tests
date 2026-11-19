@@ -87,7 +87,7 @@
                   ],
                   "type": "reviewRefusedOrder",
                   "name": "Review Refused Order",
-                  "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)",
+                  "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Send Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_sendOrder/FR_sendOrder)",
                   "task_title" : "Review Refused Order",
                   "jurisdiction" : "DIVORCE",
                   "case_category" : "FR Consented",
@@ -177,7 +177,7 @@
                   "assignee": "{$ASSIGNEE_ID}",
                   "type": "reviewRefusedOrder",
                   "name": "Review Refused Order",
-                  "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)"
+                  "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Send Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_sendOrder/FR_sendOrder)"
                 }
               ]
             }

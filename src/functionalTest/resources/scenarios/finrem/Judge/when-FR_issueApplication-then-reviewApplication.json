@@ -89,6 +89,7 @@
                     "CompleteOwn",
                     "CancelOwn",
                     "Claim",
+                    "Own",
                     "Unclaim"
                   ],
                   "authorisations": [

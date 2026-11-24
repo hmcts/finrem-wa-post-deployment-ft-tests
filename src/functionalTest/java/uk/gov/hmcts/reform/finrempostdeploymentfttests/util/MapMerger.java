@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.finrempostdeploymentfttests.util;
 
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
@@ -16,17 +17,22 @@ public final class MapMerger {
         for (Map.Entry<String, Object> difference : sourceMap.entrySet()) {
 
             String key = difference.getKey();
-            Object value = difference.getValue();
+            Object targetValue = targetMap.get(key);
+            Object sourceValue = difference.getValue();
 
-            if ((targetMap.get(key) instanceof Map) && (value instanceof Map)) {
+            if ((targetValue instanceof Map) && (sourceValue instanceof Map)) {
 
                 merge(
-                    (Map<String, Object>) targetMap.get(key),
-                    (Map<String, Object>) value
+                    (Map<String, Object>) targetValue,
+                    (Map<String, Object>) sourceValue
                 );
-
+            } else if (targetValue instanceof List<?> targetList && sourceValue instanceof List<?> sourceList) {
+                merge(
+                    (Map<String, Object>) targetList.getFirst(),
+                    (Map<String, Object>) sourceList.getFirst()
+                );
             } else {
-                targetMap.put(key, value);
+                targetMap.put(key, sourceValue);
             }
         }
     }

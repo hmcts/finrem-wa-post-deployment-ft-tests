@@ -63,7 +63,6 @@
               "tasks": [
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -74,17 +73,11 @@
                   "name": "Process Scanned Documents",
                   "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
                   "task_title" : "Process Scanned Documents",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
                   "work_type_id" : "evidence",
-                  "role_category" : "CTSC",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "CTSC"
                 },
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -95,13 +88,8 @@
                   "name": "Check and Issue Application",
                   "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplication/FR_issueApplication1)",
                   "task_title" : "Check and Issue Application",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
                   "work_type_id" : "applications",
-                  "role_category" : "CTSC",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "CTSC"
                 }
               ]
             }

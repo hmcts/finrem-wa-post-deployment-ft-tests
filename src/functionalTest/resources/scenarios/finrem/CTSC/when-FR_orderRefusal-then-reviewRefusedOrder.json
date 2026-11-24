@@ -78,7 +78,6 @@
               "tasks": [
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -89,13 +88,8 @@
                   "name": "Review Refused Order",
                   "description": "[List For Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Send Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_sendOrder/FR_sendOrder)",
                   "task_title" : "Review Refused Order",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
                   "work_type_id" : "hearing_work",
-                  "role_category" : "CTSC",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "CTSC"
                 }
               ]
             }
@@ -167,7 +161,6 @@
               "tasks": [
                 {
                   "task_state": "assigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",

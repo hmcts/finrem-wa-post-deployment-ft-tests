@@ -58,7 +58,6 @@
               "tasks": [
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -69,13 +68,8 @@
                   "name": "Check Help With Fees",
                   "description": "[HWF Accepted & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_HWFAcceptedAndIssue/FR_HWFAcceptedAndIssue1)<br>[Fee Account Debited & Issue](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_feeAccountDebitedAndIssue/FR_feeAccountDebitedAndIssue1)<br>[Awaiting Payment Response](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingPaymentResponseFromHWF/FR_awaitingPaymentResponseFromHWF1)<br>[HWF Application Accepted](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_HWFDecisionMade/FR_HWFDecisionMade1)<br>[Fee Account Debited](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_paymentMadeFromHWF/FR_paymentMadeFromHWF1)",
                   "task_title" : "Check Help With Fees",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
                   "work_type_id" : "applications",
-                  "role_category" : "CTSC",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "CTSC"
                 }
               ]
             }
@@ -147,7 +141,6 @@
               "tasks": [
                 {
                   "task_state": "assigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",

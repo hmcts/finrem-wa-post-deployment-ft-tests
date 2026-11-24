@@ -1,6 +1,12 @@
 {
   "tasks": [
     {
+      "task_system": "SELF",
+      "security_classification": "PUBLIC",
+      "jurisdiction" : "DIVORCE",
+      "case_name" : "Baggins vs Gollum",
+      "case_management_category" : "FR Consented",
+      "case_type_id" : "FinancialRemedyMVP2"
     }
   ]
 }

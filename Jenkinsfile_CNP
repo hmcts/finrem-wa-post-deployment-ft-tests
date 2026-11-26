@@ -68,28 +68,22 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
     env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
     env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
+
+    enableFullFunctionalTest(60)
   }
 
   onPR {
-    def FINREM_CCD_PR = getFinremCCDImage()
+    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="aat"
+    env.CCD_URL="http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+    env.WA_TASK_MANAGEMENT_API_URL="http://wa-task-management-api-aat.service.core-compute-aat.internal"
+    env.WA_TASK_MONITOR_URL="http://wa-task-monitor-aat.service.core-compute-aat.internal"
+    env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
+    env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
+    env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
 
-    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-    env.CCD_URL="https://ccd-data-store-api-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
-    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
-    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
-    env.CAMUNDA_URL="https://camunda-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net/engine-rest"
-    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
-    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-finrem-ccd-definitions-pr-${FINREM_CCD_PR}.preview.platform.hmcts.net"
-
-    def tests = githubApi.getLabelsbyPattern(env.BRANCH_NAME, "user-role")
-    if (tests && tests.size() > 0) {
-      env.ENABLED_USER_ROLES = tests.collect { it.replace("user-role:", "") }.join(",")
-      echo "Enabled user roles for testing  " + { env.ENABLED_USER_ROLES }
-    } else {
-      echo "No roles specified, running all user roles"
-    }
-
+    echo "Starting functional tests on: " + { env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT }
     enableFullFunctionalTest(60)
+    echo "Completed functional tests on: " + { env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT }
   }
 
   afterAlways('fullFunctionalTest') {

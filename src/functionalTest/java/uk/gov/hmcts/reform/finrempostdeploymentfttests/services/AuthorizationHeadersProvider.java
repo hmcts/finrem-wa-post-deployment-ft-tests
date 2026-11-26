@@ -2,6 +2,8 @@ package uk.gov.hmcts.reform.finrempostdeploymentfttests.services;
 
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import uk.gov.hmcts.reform.finrempostdeploymentfttests.domain.entities.idam.Cred
 import uk.gov.hmcts.reform.finrempostdeploymentfttests.domain.entities.idam.RoleCode;
 import uk.gov.hmcts.reform.finrempostdeploymentfttests.domain.entities.idam.UserInfo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String SERVICE_AUTHORIZATION = "ServiceAuthorization";
-    private static final String WA_USER_PASSWORD = "System01";
+    private static final String SYSTEM_USER_KEY = "FinremSystemUser";
 
     private final Map<String, String> tokens = new ConcurrentHashMap<>();
     private final Map<String, UserInfo> userInfo = new ConcurrentHashMap<>();
@@ -46,6 +47,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     protected String idamClientSecret;
     @Value("${idam.test.userCleanupEnabled:false}")
     private boolean testUserDeletionEnabled;
+    @Value("${idam.test.waUserPassword}")
+    private String waUserPassword;
 
     private final IdamWebApi idamWebApi;
     private final AuthTokenGenerator serviceAuthTokenGenerator;
@@ -66,7 +69,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
     @Override
     public Headers getFinremSystemUserAuthorization() {
-        return getSystemUserAuthorization("FinremSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
+        return getSystemUserAuthorization(SYSTEM_USER_KEY, "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
     }
 
     public Headers getSystemUserAuthorization(String key, String envUsername, String envPassword) {
@@ -85,8 +88,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         String credentialsKey = request.getCredentialsKey();
         if (credentialsKey.equals("WaSystemUser")) {
             return getWaSystemUserAuthorization();
-        } else if (credentialsKey.equals("FinremSystemUser")) {
-            generateRoleAssignments(System.getenv("SYSTEMUPDATE_USERNAME"), credentialsKey);
+        } else if (credentialsKey.equals(SYSTEM_USER_KEY)) {
             return getFinremSystemUserAuthorization();
         } else {
 
@@ -107,17 +109,31 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         );
     }
 
+    @PreDestroy
     @Override
     public void cleanupTestUsers() {
-        testUserAccounts.entrySet().forEach(entry -> {
-            Headers headers =  new Headers(
-                getUserAuthorizationHeader(entry.getKey(), entry.getValue()),
-                getServiceAuthorizationHeader()
-            );
-            UserInfo userInfo = getUserInfo(headers.getValue(AUTHORIZATION));
-            roleAssignmentService.clearAllRoleAssignments(headers, userInfo);
-            deleteAccount(entry.getValue());
+        testUserAccounts.forEach((credentialsKey, userEmail) -> {
+            if (credentialsKey.equals(SYSTEM_USER_KEY)) {
+                Headers headers = getFinremSystemUserAuthorization();
+                UserInfo systemUserInfo = getUserInfo(headers.getValue(AUTHORIZATION));
+                roleAssignmentService.clearAllRoleAssignments(headers, systemUserInfo);
+            } else {
+                Headers headers = new Headers(
+                    getUserAuthorizationHeader(credentialsKey, userEmail),
+                    getServiceAuthorizationHeader()
+                );
+                UserInfo userInfo1 = getUserInfo(headers.getValue(AUTHORIZATION));
+                roleAssignmentService.clearAllRoleAssignments(headers, userInfo1);
+                deleteAccount(userEmail);
+            }
         });
+    }
+
+    @PostConstruct
+    private void setupSystemUser() {
+        String email = System.getenv("SYSTEMUPDATE_USERNAME");
+        generateRoleAssignments(email, SYSTEM_USER_KEY);
+        testUserAccounts.put(SYSTEM_USER_KEY, email);
     }
 
     private void deleteAccount(String username) {
@@ -139,7 +155,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     private Header getUserAuthorizationHeader(String key, String username) {
-        return getUserAuthorizationHeader(key, username, WA_USER_PASSWORD);
+        return getUserAuthorizationHeader(key, username, waUserPassword);
     }
 
     private Header getUserAuthorizationHeader(String key, String username, String password) {
@@ -213,7 +229,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
         Map<String, Object> body = new ConcurrentHashMap<>();
         body.put("email", userEmail);
-        body.put("password", WA_USER_PASSWORD);
+        body.put("password", waUserPassword);
         body.put("forename", "Finrem");
         body.put("surname", "Functional");
         body.put("roles", requiredRoles);
@@ -224,12 +240,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     private List<String> findRoleAssignmentRequirements(String credentialsKey) {
         List<String> roleAssignments = new ArrayList<>();
         switch (credentialsKey) {
-            case "superuser":
-            case "FinremSystemUser":
-                roleAssignments.add("ctsc");
-                roleAssignments.add("ctsc-team-leader");
-                break;
-            case "ctsc-team-leader":
+            case SYSTEM_USER_KEY, "ctsc-team-leader":
                 roleAssignments.add("ctsc");
                 roleAssignments.add("ctsc-team-leader");
                 break;
@@ -254,7 +265,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
     private void assignRoleAssignment(String userEmail, String credentialsKey, String roleName) {
         Headers authenticationHeaders;
-        if (credentialsKey.equals("FinremSystemUser")) {
+        if (credentialsKey.equals(SYSTEM_USER_KEY)) {
             authenticationHeaders = getFinremSystemUserAuthorization();
         } else {
             authenticationHeaders = new Headers(
@@ -262,8 +273,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 getServiceAuthorizationHeader()
             );
         }
-        UserInfo userInfo = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
-        roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo, roleName);
+        UserInfo userInfo1 = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
+        roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo1, roleName);
     }
 
     public CredentialRequest extractCredentialRequest(Map<String, Object> map, String path) {
@@ -273,7 +284,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         return new CredentialRequest(credentialsKey, granularPermission);
     }
 
-    public UserInfo getAssigneeInfo(Map<String, Object> request) throws IOException {
+    public UserInfo getAssigneeInfo(Map<String, Object> request) {
         CredentialRequest credentialRequest = extractCredentialRequest(
             request, "input.assignee.credentials");
         Headers requestAuthorizationHeaders = getWaUserAuthorization(credentialRequest);

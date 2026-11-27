@@ -68,6 +68,8 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
     env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
     env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
+
+    enableFullFunctionalTest(60)
   }
 
   onPR {

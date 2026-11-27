@@ -59,6 +59,11 @@ sourceSets {
         }
         resources.srcDir file('src/smokeTest/resources')
     }
+
+    test {
+        compileClasspath += functionalTest.output
+        runtimeClasspath += functionalTest.output
+    }
 }
 
 compileJava {
@@ -255,15 +260,21 @@ dependencies {
     }
 
     testUtilsImplementation sourceSets.main.runtimeClasspath
-    testUtilsImplementation sourceSets.test.runtimeClasspath
 
     integrationTestImplementation sourceSets.main.runtimeClasspath
     integrationTestImplementation sourceSets.test.runtimeClasspath
 
     functionalTestImplementation sourceSets.main.runtimeClasspath
-    functionalTestImplementation sourceSets.test.runtimeClasspath
 
     smokeTestImplementation sourceSets.main.runtimeClasspath
+}
+
+configurations {
+    testUtilsImplementation.extendsFrom testImplementation
+    testUtilsRuntimeOnly.extendsFrom testRuntimeOnly
+
+    functionalTestImplementation.extendsFrom testImplementation
+    functionalTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 application {

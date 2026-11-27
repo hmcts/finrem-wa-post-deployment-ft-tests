@@ -1,0 +1,13 @@
+{
+  "tasks": [
+    {
+      "work_type_id": "evidence",
+      "name": "Process Scanned Documents",
+      "task_state": "unassigned",
+      "description": "[Attach scanned document](/cases/case-details/${[CASE_REFERENCE]}/trigger/attachScannedDocs/attachScannedDocs1)",
+      "task_title": "Process Scanned Documents",
+      "role_category": "CTSC",
+      "type": "processScannedDocuments"
+    }
+  ]
+}

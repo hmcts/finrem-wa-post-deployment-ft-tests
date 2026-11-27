@@ -53,7 +53,6 @@
               "tasks": [
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -65,12 +64,7 @@
                   "description": "[Approve Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_approveApplication/FR_approveApplication1)<br>[Upload Approved Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_uploadApprovedOrder/FR_uploadApprovedOrder1)<br>[Application Not Approved](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_orderRefusal/FR_orderRefusal1)",
                   "task_title": "Review Application",
                   "work_type_id": "decision_making_work",
-                  "role_category" : "JUDICIAL",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "JUDICIAL"
                 }
               ]
             }
@@ -143,14 +137,16 @@
               "tasks": [
                 {
                   "task_state": "assigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
                       "value": "reviewApplication"
                     }
                   ],
-                  "assignee": "{$ASSIGNEE_ID}"
+                  "assignee": "{$ASSIGNEE_ID}",
+                  "type": "reviewApplication",
+                  "name": "Review Application",
+                  "description": "[Approve Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_approveApplication/FR_approveApplication1)<br>[Upload Approved Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_uploadApprovedOrder/FR_uploadApprovedOrder1)<br>[Application Not Approved](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_orderRefusal/FR_orderRefusal1)"
                 }
               ]
             }

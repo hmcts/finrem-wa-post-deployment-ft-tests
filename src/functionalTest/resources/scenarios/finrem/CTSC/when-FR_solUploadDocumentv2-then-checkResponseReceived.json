@@ -53,7 +53,6 @@
               "tasks": [
                 {
                   "task_state": "unassigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
@@ -64,13 +63,8 @@
                   "name": "Check Response Received",
                   "description": "[Issue Application](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_issueApplicationFromInfoReceived/FR_issueApplicationFromInfoReceived1)<br>[Awaiting Information](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_awaitingInfo/FR_awaitingInfo1)<br>[Create General Email](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalEmail/FR_generalEmail1)<br>[Create General Letter](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalLetter/FR_generalLetter1)<br>[General Order](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_generalOrderFromInfoReceived/FR_generalOrderFromInfoReceived1)<br>[List for hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_listForHearing/FR_listForHearing1)<br>[Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/FR_close/FR_close1)",
                   "task_title" : "Check Response Received",
-                  "jurisdiction" : "DIVORCE",
-                  "case_category" : "FR Consented",
-                  "case_name" : "Baggins vs Gollum",
-                  "case_management_category" : "FR Consented",
                   "work_type_id" : "routine_work",
-                  "role_category" : "CTSC",
-                  "case_type_id" : "FinancialRemedyMVP2"
+                  "role_category" : "CTSC"
                 }
               ]
             }
@@ -142,7 +136,6 @@
               "tasks": [
                 {
                   "task_state": "assigned",
-                  "task_system": "SELF",
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
